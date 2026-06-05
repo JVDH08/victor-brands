@@ -20,8 +20,10 @@ export const siteContent = {
       "https://d8j0ntlcm91z4.cloudfront.net/user_3EOJXXOi3zIKWUH2mnlkIeXI6wM/hf_20260605_113502_d1785f19-6964-465e-9c96-22d3f0a214eb.png",
     heroBackground:
       "https://d8j0ntlcm91z4.cloudfront.net/user_3EOJXXOi3zIKWUH2mnlkIeXI6wM/hf_20260605_111936_fad43455-659c-4a10-ad73-5251ebcbcdc4.png",
+    // Higgsfield-enhanced (sharper/higher-res, content unchanged) of the
+    // original victorbrands.nl/.../aanbod_r4_c5.png
     trainingsacteur:
-      "https://www.victorbrands.nl/wp-content/uploads/2017/10/aanbod_r4_c5.png",
+      "https://d8j0ntlcm91z4.cloudfront.net/user_3EOJXXOi3zIKWUH2mnlkIeXI6wM/hf_20260605_125845_5c3213f7-a904-4620-a5ac-c389068c6987.png",
     insightsDiscovery:
       "https://www.victorbrands.nl/wp-content/uploads/2018/01/insight-discovery.jpg",
     hbdiCertified:

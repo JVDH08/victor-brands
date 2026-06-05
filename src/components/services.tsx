@@ -59,7 +59,7 @@ function ServiceCard({
             src={image}
             alt={item.title}
             fill
-            className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
+            className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-white via-white/10 to-transparent" />
           <div className="absolute inset-0 bg-[#2563eb]/10 mix-blend-multiply" />
