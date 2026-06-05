@@ -1,15 +1,13 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { siteContent } from "@/content";
 import { Reveal, ease } from "@/components/motion-primitives";
-import { BookOrderModal } from "@/components/book-order-modal";
 
 const { book } = siteContent;
 
 export function Book() {
-  const [orderOpen, setOrderOpen] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
   const glowY = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
@@ -58,16 +56,10 @@ export function Book() {
             </p>
             <p className="mb-5 text-sm leading-relaxed text-[#9fb6d9]">{book.body1}</p>
             <p className="text-sm leading-relaxed text-[#9fb6d9]">{book.body2}</p>
-            <div className="mt-8">
-              <button
-                onClick={() => setOrderOpen(true)}
-                className="inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-[#0e2244] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#eff4ff] hover:shadow-[0_12px_32px_rgba(0,0,0,0.3)]"
-              >
-                {book.orderCta}
-                <svg viewBox="0 0 16 16" fill="none" className="h-3.5 w-3.5">
-                  <path d="M2 8h12M8 2l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </button>
+            <div className="mt-8 inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/5 px-5 py-3">
+              <span className="flex h-2 w-2 rounded-full bg-[#5b9bf5]" />
+              <span className="text-sm font-semibold text-white">{book.soldOutLabel}</span>
+              <span className="text-xs text-[#9fb6d9]">— {book.soldOutNote}</span>
             </div>
           </Reveal>
 
@@ -103,8 +95,6 @@ export function Book() {
           </Reveal>
         </div>
       </div>
-
-      <BookOrderModal open={orderOpen} onClose={() => setOrderOpen(false)} />
     </section>
   );
 }

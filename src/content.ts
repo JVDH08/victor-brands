@@ -256,30 +256,9 @@ export const siteContent = {
       "In 2001 werd Victor Brands in Miami gearresteerd voor het witwassen van geld en veroordeeld tot drie jaar hechtenis in Amerikaanse federale gevangenissen. Vanuit zijn cel schreef hij wekelijks verslagen voor de Volkskrant onder het pseudoniem Jan de Graaf — eerlijk, rauw en met onnavolgbare zwarte humor.",
     body2:
       "Die columns werden het boek Vast in de VS. Het verscheen in 2005 en is tot op de dag van vandaag de meest indringende beschrijving van wat er met een mens gebeurt als hij alles verliest — en hoe hij zichzelf terugvindt.",
-    orderCta: "Bestel het boek",
     orderEmail: "victor@victorbrands.nl",
-    order: {
-      title: "Bestel “Vast in de VS”",
-      intro:
-        "Vul je gegevens in. Je bestelling wordt als e-mail klaargezet voor Victor — hij neemt contact op over levering en betaling.",
-      priceNote: "Prijs op aanvraag · inclusief verzending binnen Nederland",
-      labels: {
-        name: "Naam",
-        namePlaceholder: "Voor- en achternaam",
-        email: "E-mailadres",
-        emailPlaceholder: "naam@voorbeeld.nl",
-        address: "Bezorgadres",
-        addressPlaceholder: "Straat, huisnummer, postcode en plaats",
-        quantity: "Aantal exemplaren",
-        message: "Opmerking (optioneel)",
-        messagePlaceholder: "Bijv. een persoonlijke opdracht of signering",
-        submit: "Verstuur bestelling",
-        cancel: "Annuleren",
-      },
-      successTitle: "Bestelling klaargezet",
-      successBody:
-        "Je mailprogramma is geopend met de bestelling. Verstuur de e-mail om je bestelling af te ronden — Victor reageert zo snel mogelijk.",
-    },
+    soldOutLabel: "Momenteel uitverkocht",
+    soldOutNote: "Het boek is op dit moment niet leverbaar.",
     volkskrantNote:
       "Zijn columns verschenen wekelijks in de Volkskrant onder het pseudoniem Jan de Graaf. De arrestatiegetuigenis is nog steeds beschikbaar via zijn website.",
     backgroundUrl:
@@ -315,7 +294,9 @@ export const siteContent = {
       message: "Bericht",
       messagePlaceholder: "Vertel kort wat u zoekt — Victor leest elk bericht persoonlijk",
       submit: "Verstuur",
+      sending: "Versturen…",
       privacy: "Uw gegevens worden alleen gebruikt voor dit contact.",
+      error: "Er ging iets mis bij het versturen. Probeer het later opnieuw of mail rechtstreeks.",
     },
     successTitle: "Bericht ontvangen",
     successBody: "Victor neemt zo snel mogelijk contact met u op.",

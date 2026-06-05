@@ -6,11 +6,39 @@ import { siteContent } from "@/content";
 import { Reveal, WordReveal } from "@/components/motion-primitives";
 
 const { contact } = siteContent;
+type Status = "idle" | "sending" | "error";
 const field =
   "w-full border-b border-[rgba(20,48,95,0.18)] bg-transparent px-0 py-4 text-[#14305f] placeholder-[#9aa3b5] outline-none transition-colors duration-300 focus:border-[#2563eb] text-sm";
 
 export function Contact() {
   const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<Status>("idle");
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (status === "sending") return;
+
+    const form = e.currentTarget;
+    const fd = new FormData(form);
+    const payload = {
+      name: String(fd.get("name") ?? ""),
+      email: String(fd.get("email") ?? ""),
+      message: String(fd.get("message") ?? ""),
+    };
+
+    setStatus("sending");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error("request failed");
+      setSent(true);
+    } catch {
+      setStatus("error");
+    }
+  }
 
   return (
     <section id="contact" className="relative bg-[#f6f8fc] px-8 py-28 md:px-[8vw] md:py-36">
@@ -78,26 +106,38 @@ export function Contact() {
                 <p className="text-sm text-[#5a6478]">{contact.successBody}</p>
               </motion.div>
             ) : (
-              <form onSubmit={(e) => { e.preventDefault(); setSent(true); }} className="flex flex-col gap-9">
+              <form onSubmit={handleSubmit} className="flex flex-col gap-9">
                 <div>
                   <label className="label mb-1 block">{contact.formLabels.name}</label>
-                  <input type="text" required placeholder={contact.formLabels.namePlaceholder} className={field} />
+                  <input name="name" type="text" required placeholder={contact.formLabels.namePlaceholder} className={field} />
                 </div>
                 <div>
                   <label className="label mb-1 block">{contact.formLabels.email}</label>
-                  <input type="email" required placeholder={contact.formLabels.emailPlaceholder} className={field} />
+                  <input name="email" type="email" required placeholder={contact.formLabels.emailPlaceholder} className={field} />
                 </div>
                 <div>
                   <label className="label mb-1 block">{contact.formLabels.message}</label>
-                  <textarea required rows={5} placeholder={contact.formLabels.messagePlaceholder} className={`${field} resize-none`} />
+                  <textarea name="message" required rows={5} placeholder={contact.formLabels.messagePlaceholder} className={`${field} resize-none`} />
                 </div>
+
+                {status === "error" && (
+                  <p className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-xs text-red-600">
+                    {contact.formLabels.error}{" "}
+                    <a href={`mailto:${contact.email}`} className="font-semibold underline">
+                      {contact.email}
+                    </a>
+                  </p>
+                )}
+
                 <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
                   <p className="text-xs text-[#9aa3b5]">{contact.formLabels.privacy}</p>
-                  <button type="submit" className="btn-blue shrink-0">
-                    {contact.formLabels.submit}
-                    <svg viewBox="0 0 16 16" fill="none" className="h-3.5 w-3.5">
-                      <path d="M2 8h12M8 2l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
+                  <button type="submit" disabled={status === "sending"} className="btn-blue shrink-0 disabled:cursor-not-allowed disabled:opacity-60">
+                    {status === "sending" ? contact.formLabels.sending : contact.formLabels.submit}
+                    {status !== "sending" && (
+                      <svg viewBox="0 0 16 16" fill="none" className="h-3.5 w-3.5">
+                        <path d="M2 8h12M8 2l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    )}
                   </button>
                 </div>
               </form>
