@@ -43,6 +43,18 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Safety: headings must never push text outside the viewport on any screen */
+h1, h2, h3, h4 {
+  overflow-wrap: break-word;
+  word-break: normal;
+  max-width: 100%;
+}
+
+/* Italic text leans right; give it a hair of room so glyph tails aren't clipped */
+em, i {
+  padding-right: 0.02em;
+}
+
 ::selection {
   background: rgba(37, 99, 235, 0.18);
   color: #14305f;

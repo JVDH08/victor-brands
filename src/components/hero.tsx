@@ -54,7 +54,7 @@ export function Hero() {
           </motion.p>
 
           <h1
-            className="mb-7 text-[clamp(3.5rem,8vw,7rem)] font-bold leading-[0.92] tracking-tight text-[#14305f]"
+            className="mb-7 max-w-full break-words text-[clamp(3.5rem,8vw,7rem)] font-bold leading-[0.92] tracking-tight text-[#14305f]"
             style={{ fontFamily: "var(--font-playfair)" }}
           >
             <span className="block overflow-hidden">

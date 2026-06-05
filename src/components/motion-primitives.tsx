@@ -104,11 +104,16 @@ export function WordReveal({
   const words = text.split(" ");
 
   return (
-    <h2 ref={ref} className={className}>
+    <h2 ref={ref} className={`${className ?? ""} max-w-full break-words`}>
       {words.map((word, i) => (
-        <span key={i} className="inline-block overflow-hidden align-bottom">
+        <span
+          key={i}
+          className={`inline-block max-w-full overflow-hidden align-bottom ${
+            accentFrom !== undefined && i >= accentFrom ? "pr-[0.12em]" : ""
+          }`}
+        >
           <motion.span
-            className="inline-block"
+            className="inline-block break-words"
             initial={{ y: "110%" }}
             animate={inView ? { y: 0 } : {}}
             transition={{ duration: 0.8, ease, delay: delay + i * 0.08 }}
