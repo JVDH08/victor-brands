@@ -1,0 +1,110 @@
+"use client";
+
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { siteContent } from "@/content";
+import { Reveal, WordReveal } from "@/components/motion-primitives";
+
+const { contact } = siteContent;
+const field =
+  "w-full border-b border-[rgba(20,48,95,0.18)] bg-transparent px-0 py-4 text-[#14305f] placeholder-[#9aa3b5] outline-none transition-colors duration-300 focus:border-[#2563eb] text-sm";
+
+export function Contact() {
+  const [sent, setSent] = useState(false);
+
+  return (
+    <section id="contact" className="relative bg-[#f6f8fc] px-8 py-28 md:px-[8vw] md:py-36">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_50%_60%_at_50%_0%,rgba(37,99,235,0.06),transparent)]" />
+
+      <div className="relative z-10 grid gap-20 lg:grid-cols-2 lg:gap-32">
+        <div>
+          <Reveal>
+            <p className="label mb-4">{contact.sectionLabel}</p>
+          </Reveal>
+          <WordReveal
+            text={`${contact.heading} ${contact.headingAccent}`}
+            accentFrom={contact.heading.split(" ").length}
+            className="text-[clamp(2.8rem,5vw,4.5rem)] font-bold leading-[1.05] tracking-tight text-[#14305f]"
+          />
+          <Reveal delay={0.15}>
+            <div className="blue-line mb-8 mt-6" />
+            <p className="mb-10 text-sm leading-relaxed text-[#5a6478]">{contact.intro}</p>
+
+            <div className="space-y-4">
+              <div className="flex items-center gap-3">
+                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#eff4ff] text-[#2563eb]">
+                  <svg viewBox="0 0 16 16" fill="none" className="h-4 w-4">
+                    <path d="M2 4l6 5 6-5M2 4h12v8H2V4z" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </div>
+                <a href={`mailto:${contact.email}`} className="text-sm text-[#14305f] transition-colors hover:text-[#2563eb]">
+                  {contact.email}
+                </a>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#eff4ff] text-[#2563eb]">
+                  <svg viewBox="0 0 16 16" fill="none" className="h-4 w-4">
+                    <circle cx="8" cy="7" r="3" stroke="currentColor" strokeWidth="1.2" />
+                    <path d="M8 2C5.239 2 3 4.239 3 7c0 4 5 9 5 9s5-5 5-9c0-2.761-2.239-5-5-5z" stroke="currentColor" strokeWidth="1.2" />
+                  </svg>
+                </div>
+                <span className="text-sm text-[#5a6478]">{contact.location}</span>
+              </div>
+            </div>
+
+            <div className="mt-12 flex flex-col gap-4">
+              {contact.principles.map((p, i) => (
+                <div key={p} className="flex items-center gap-3">
+                  <span className="text-lg font-bold text-[rgba(37,99,235,0.5)]" style={{ fontFamily: "var(--font-playfair)" }}>
+                    {`0${i + 1}`}
+                  </span>
+                  <span className="text-sm font-medium text-[#14305f]">{p}</span>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+
+        <Reveal delay={0.15}>
+          <div className="card rounded-2xl p-8 md:p-10">
+            {sent ? (
+              <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="flex h-full min-h-[400px] flex-col items-center justify-center gap-6 text-center">
+                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#eff4ff] text-[#2563eb]">
+                  <svg viewBox="0 0 24 24" fill="none" className="h-8 w-8">
+                    <path d="M5 12l5 5L20 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </div>
+                <p className="text-2xl font-bold text-[#14305f]" style={{ fontFamily: "var(--font-playfair)" }}>{contact.successTitle}</p>
+                <p className="text-sm text-[#5a6478]">{contact.successBody}</p>
+              </motion.div>
+            ) : (
+              <form onSubmit={(e) => { e.preventDefault(); setSent(true); }} className="flex flex-col gap-9">
+                <div>
+                  <label className="label mb-1 block">{contact.formLabels.name}</label>
+                  <input type="text" required placeholder={contact.formLabels.namePlaceholder} className={field} />
+                </div>
+                <div>
+                  <label className="label mb-1 block">{contact.formLabels.email}</label>
+                  <input type="email" required placeholder={contact.formLabels.emailPlaceholder} className={field} />
+                </div>
+                <div>
+                  <label className="label mb-1 block">{contact.formLabels.message}</label>
+                  <textarea required rows={5} placeholder={contact.formLabels.messagePlaceholder} className={`${field} resize-none`} />
+                </div>
+                <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
+                  <p className="text-xs text-[#9aa3b5]">{contact.formLabels.privacy}</p>
+                  <button type="submit" className="btn-blue shrink-0">
+                    {contact.formLabels.submit}
+                    <svg viewBox="0 0 16 16" fill="none" className="h-3.5 w-3.5">
+                      <path d="M2 8h12M8 2l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </button>
+                </div>
+              </form>
+            )}
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}

@@ -1,0 +1,125 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-navy: #14305f;
+  --color-navy-deep: #0e2244;
+  --color-blue: #2563eb;
+  --color-blue-light: #3b82f6;
+  --color-blue-soft: #eff4ff;
+  --color-ink: #14213a;
+  --color-slate: #5a6478;
+  --color-mist: #f6f8fc;
+  --color-line: rgba(20, 48, 95, 0.1);
+  --font-display: var(--font-playfair), "Georgia", serif;
+  --font-body: var(--font-inter), sans-serif;
+  --font-quote: var(--font-cormorant), "Georgia", serif;
+}
+
+html {
+  background: #ffffff;
+  overflow-x: hidden;
+  /* Lenis drives scrolling; keep native smooth off to avoid conflict */
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+body {
+  background: #ffffff;
+  color: #14213a;
+  font-family: var(--font-inter), sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: rgba(37, 99, 235, 0.18);
+  color: #14305f;
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #eff4ff; }
+::-webkit-scrollbar-thumb { background: rgba(37, 99, 235, 0.4); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(37, 99, 235, 0.6); }
+
+/* Section label */
+.label {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: #2563eb;
+}
+
+/* Blue divider line */
+.blue-line {
+  width: 44px;
+  height: 2px;
+  background: linear-gradient(90deg, #2563eb, rgba(37, 99, 235, 0.1));
+  border-radius: 2px;
+}
+
+/* Primary button */
+.btn-blue {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.9rem 2.1rem;
+  background: #2563eb;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  border-radius: 999px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.22);
+}
+.btn-blue:hover {
+  background: #1d4ed8;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(37, 99, 235, 0.34);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.9rem 2.1rem;
+  border: 1px solid rgba(20, 48, 95, 0.18);
+  color: #14305f;
+  font-weight: 500;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  border-radius: 999px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-ghost:hover {
+  border-color: #2563eb;
+  color: #2563eb;
+  background: rgba(37, 99, 235, 0.04);
+  transform: translateY(-2px);
+}
+
+/* Premium card */
+.card {
+  background: #ffffff;
+  border: 1px solid rgba(20, 48, 95, 0.08);
+  box-shadow: 0 1px 2px rgba(20, 33, 58, 0.04);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.card:hover {
+  border-color: rgba(37, 99, 235, 0.25);
+  box-shadow: 0 24px 60px rgba(20, 48, 95, 0.12), 0 0 0 1px rgba(37, 99, 235, 0.06);
+}
