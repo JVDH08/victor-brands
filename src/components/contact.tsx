@@ -23,7 +23,10 @@ export function Contact() {
     const payload = {
       name: String(fd.get("name") ?? ""),
       email: String(fd.get("email") ?? ""),
+      phone: String(fd.get("phone") ?? ""),
       message: String(fd.get("message") ?? ""),
+      // honeypot — only bots fill this
+      company: String(fd.get("company") ?? ""),
     };
 
     setStatus("sending");
@@ -115,6 +118,19 @@ export function Contact() {
                   <label className="label mb-1 block">{contact.formLabels.email}</label>
                   <input name="email" type="email" required placeholder={contact.formLabels.emailPlaceholder} className={field} />
                 </div>
+                <div>
+                  <label className="label mb-1 block">{contact.formLabels.phone}</label>
+                  <input name="phone" type="tel" placeholder={contact.formLabels.phonePlaceholder} className={field} />
+                </div>
+
+                {/* Honeypot — hidden from humans, catches spam bots. Not announced to screen readers. */}
+                <div aria-hidden="true" className="absolute left-[-9999px] top-[-9999px] h-0 w-0 overflow-hidden">
+                  <label>
+                    Laat dit veld leeg
+                    <input name="company" type="text" tabIndex={-1} autoComplete="off" />
+                  </label>
+                </div>
+
                 <div>
                   <label className="label mb-1 block">{contact.formLabels.message}</label>
                   <textarea name="message" required rows={5} placeholder={contact.formLabels.messagePlaceholder} className={`${field} resize-none`} />

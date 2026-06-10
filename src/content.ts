@@ -293,6 +293,8 @@ export const siteContent = {
       namePlaceholder: "Voor- en achternaam",
       email: "E-mailadres",
       emailPlaceholder: "naam@bedrijf.nl",
+      phone: "Telefoon (optioneel)",
+      phonePlaceholder: "+31 6 …",
       message: "Bericht",
       messagePlaceholder: "Vertel kort wat u zoekt — Victor leest elk bericht persoonlijk",
       submit: "Verstuur",
