@@ -69,7 +69,7 @@ export function Nav() {
             onClick={() => scrollTo("#contact")}
             className="hidden btn-blue py-2.5 px-5 text-[11px] lg:inline-flex"
           >
-            Contact
+            {nav.cta}
           </button>
 
           <button
@@ -107,6 +107,15 @@ export function Nav() {
                   {link.label}
                 </motion.button>
               ))}
+              <motion.button
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: nav.links.length * 0.07, duration: 0.5 }}
+                onClick={() => scrollTo("#contact")}
+                className="btn-blue mt-4"
+              >
+                {nav.cta}
+              </motion.button>
             </nav>
             <p className="absolute bottom-10 font-mono text-[10px] tracking-[0.22em] text-[#9aa3b5] uppercase">
               {siteContent.contact.email}

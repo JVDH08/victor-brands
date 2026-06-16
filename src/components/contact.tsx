@@ -62,6 +62,7 @@ export function Contact() {
             <p className="mb-10 text-sm leading-relaxed text-[#5a6478]">{contact.intro}</p>
 
             <div className="space-y-4">
+              {/* E-mail */}
               <div className="flex items-center gap-3">
                 <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#eff4ff] text-[#2563eb]">
                   <svg viewBox="0 0 16 16" fill="none" className="h-4 w-4">
@@ -72,6 +73,44 @@ export function Contact() {
                   {contact.email}
                 </a>
               </div>
+
+              {/* Telefoon */}
+              <div className="flex items-center gap-3">
+                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#eff4ff] text-[#2563eb]">
+                  <svg viewBox="0 0 16 16" fill="none" className="h-4 w-4">
+                    <path d="M4 2.5h2.2l1 2.5-1.3 1a7.5 7.5 0 003.6 3.6l1-1.3 2.5 1v2.2c0 .8-.7 1.4-1.5 1.4A11 11 0 013 5C2.9 4.2 3.2 2.5 4 2.5z" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </div>
+                {contact.phone ? (
+                  <a href={`tel:${contact.phone.replace(/\s+/g, "")}`} className="text-sm text-[#14305f] transition-colors hover:text-[#2563eb]">
+                    {contact.phone}
+                  </a>
+                ) : (
+                  <span className="text-sm text-[#9aa3b5]">
+                    {contact.phoneLabel} — {contact.placeholderNote}
+                  </span>
+                )}
+              </div>
+
+              {/* LinkedIn */}
+              <div className="flex items-center gap-3">
+                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#eff4ff] text-[#2563eb]">
+                  <svg viewBox="0 0 16 16" fill="currentColor" className="h-4 w-4">
+                    <path d="M3 4a1 1 0 100-2 1 1 0 000 2zM2.2 5.5h1.6V14H2.2V5.5zM6 5.5h1.5v1.15h.02c.21-.4.72-.82 1.48-.82 1.58 0 1.87 1.04 1.87 2.4V14H9.34V9.6c0-.6-.01-1.37-.83-1.37-.84 0-.97.65-.97 1.33V14H6V5.5z" />
+                  </svg>
+                </div>
+                {contact.linkedin ? (
+                  <a href={contact.linkedin} target="_blank" rel="noopener noreferrer" className="text-sm text-[#14305f] transition-colors hover:text-[#2563eb]">
+                    {contact.linkedinLabel}
+                  </a>
+                ) : (
+                  <span className="text-sm text-[#9aa3b5]">
+                    {contact.linkedinLabel} — {contact.placeholderNote}
+                  </span>
+                )}
+              </div>
+
+              {/* Standplaats */}
               <div className="flex items-center gap-3">
                 <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#eff4ff] text-[#2563eb]">
                   <svg viewBox="0 0 16 16" fill="none" className="h-4 w-4">

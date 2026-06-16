@@ -54,7 +54,7 @@ function Chapter({ chapter }: { chapter: typeof about.chapters[number] }) {
 
 export function About() {
   return (
-    <section id="over-victor" className="relative bg-white px-8 py-28 md:px-[8vw] md:py-36">
+    <section id="verhaal" className="relative bg-white px-8 py-28 md:px-[8vw] md:py-36">
       <div className="mb-20 grid items-end gap-12 lg:grid-cols-[1fr_auto]">
         <div className="max-w-xl">
           <Reveal>

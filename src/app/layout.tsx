@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Playfair_Display, Inter, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 import { SmoothScroll } from "@/components/smooth-scroll";
+import { siteContent } from "@/content";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -27,10 +28,20 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: "Victor Brands — Trainer, Trainingsacteur & Coach",
-  description:
-    "Victor Brands: ex-KLM-manager, stand-up comedian, acteur en veelgevraagd trainer voor o.a. Heineken en Rijkswaterstaat. Trainingen op maat met veiligheid, interactiviteit en humor als kernwaarden.",
-  keywords: ["trainer", "trainingsacteur", "coach", "Amsterdam", "Heineken", "Rijkswaterstaat", "Victor Brands"],
+  title: siteContent.meta.title,
+  description: siteContent.meta.description,
+  keywords: [
+    "trainer",
+    "trainingsacteur",
+    "teamcoach",
+    "leiderschap",
+    "teamontwikkeling",
+    "communicatie",
+    "managementteam",
+    "overheid",
+    "Amsterdam",
+    "Victor Brands",
+  ],
 };
 
 export default function RootLayout({

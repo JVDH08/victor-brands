@@ -76,7 +76,19 @@ function ServiceCard({
         >
           {item.title}
         </h3>
-        <p className="flex-1 text-sm leading-relaxed text-[#5a6478]">{item.body}</p>
+        <p className="text-sm leading-relaxed text-[#5a6478]">{item.body}</p>
+
+        <div className="mt-6 flex flex-1 flex-col gap-4 border-t border-[rgba(20,48,95,0.08)] pt-6">
+          <div>
+            <p className="label mb-1.5">{services.approachLabel}</p>
+            <p className="text-sm leading-relaxed text-[#5a6478]">{item.approach}</p>
+          </div>
+          <div>
+            <p className="label mb-1.5">{services.resultLabel}</p>
+            <p className="text-sm leading-relaxed text-[#5a6478]">{item.result}</p>
+          </div>
+        </div>
+
         <div className="mt-7 flex flex-wrap gap-2">
           {item.tags.map((tag) => (
             <span
@@ -124,6 +136,18 @@ export function Services() {
           />
         ))}
       </div>
+
+      <Reveal>
+        <div className="mt-14 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+          <p className="text-sm text-[#5a6478]">{services.ctaIntro}</p>
+          <button
+            onClick={() => document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })}
+            className="btn-blue shrink-0"
+          >
+            {services.cta}
+          </button>
+        </div>
+      </Reveal>
     </section>
   );
 }

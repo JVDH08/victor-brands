@@ -95,7 +95,7 @@ export function Hero() {
             className="flex flex-wrap gap-4"
           >
             <button
-              onClick={() => document.querySelector("#over-victor")?.scrollIntoView({ behavior: "smooth" })}
+              onClick={() => document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })}
               className="btn-blue"
             >
               {hero.ctaPrimary}
@@ -104,7 +104,7 @@ export function Hero() {
               </svg>
             </button>
             <button
-              onClick={() => document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })}
+              onClick={() => document.querySelector("#diensten")?.scrollIntoView({ behavior: "smooth" })}
               className="btn-ghost"
             >
               {hero.ctaSecondary}
