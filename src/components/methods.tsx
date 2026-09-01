@@ -14,10 +14,13 @@ function QuadrantGrid({
   quadrants,
   title,
   subtitle,
+  variant = "letter",
 }: {
   quadrants: typeof methods.disc.quadrants;
   title: string;
   subtitle: string;
+  // "letter" = DISC (D/I/S/C), "dot" = Insights (gevulde kleurcirkel)
+  variant?: "letter" | "dot";
 }) {
   const [hovered, setHovered] = useState<string | null>(null);
   const ref = useRef<HTMLDivElement>(null);
@@ -51,12 +54,23 @@ function QuadrantGrid({
               className="absolute right-0 top-0 h-1.5 w-full transition-opacity duration-300"
               style={{ background: q.color, opacity: hovered === q.key ? 1 : 0.35 }}
             />
-            <div
-              className="mb-3 text-4xl font-black"
-              style={{ fontFamily: "var(--font-playfair)", color: q.color, opacity: hovered === q.key ? 1 : 0.7, transition: "opacity 0.3s" }}
-            >
-              {q.key}
-            </div>
+            {variant === "dot" ? (
+              // h-10 = line-height van text-4xl, h-9/w-9 = font-size ervan,
+              // zodat de cirkel exact dezelfde ruimte inneemt als de letter.
+              <div className="mb-3 flex h-10 items-center">
+                <span
+                  className="block h-9 w-9 rounded-full transition-opacity duration-300"
+                  style={{ background: q.color, opacity: hovered === q.key ? 1 : 0.7 }}
+                />
+              </div>
+            ) : (
+              <div
+                className="mb-3 text-4xl font-black"
+                style={{ fontFamily: "var(--font-playfair)", color: q.color, opacity: hovered === q.key ? 1 : 0.7, transition: "opacity 0.3s" }}
+              >
+                {q.key}
+              </div>
+            )}
             <p className="text-sm font-semibold text-[#14305f]">{q.label}</p>
             <motion.p
               animate={{ opacity: hovered === q.key ? 1 : 0, height: hovered === q.key ? "auto" : 0 }}
@@ -89,32 +103,10 @@ export function Methods() {
         </Reveal>
       </div>
 
-      <div className="grid gap-16 md:grid-cols-2">
+      <div className="grid gap-16 lg:grid-cols-2">
         <QuadrantGrid quadrants={methods.disc.quadrants} title={methods.disc.title} subtitle={methods.disc.subtitle} />
-        <QuadrantGrid quadrants={methods.hbdi.quadrants} title={methods.hbdi.title} subtitle={methods.hbdi.subtitle} />
+        <QuadrantGrid quadrants={methods.insights.quadrants} title={methods.insights.title} subtitle={methods.insights.subtitle} variant="dot" />
       </div>
-
-      {/* Insights Discovery callout */}
-      <Reveal>
-        <div className="mt-16 overflow-hidden rounded-2xl border border-[rgba(37,99,235,0.15)] bg-gradient-to-br from-[#eff4ff] to-white p-8">
-          <div className="flex items-start gap-6">
-            <div className="mt-1 flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-[#2563eb]/10 text-[#2563eb]">
-              <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5">
-                <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.5" />
-                <circle cx="12" cy="8" r="1.5" fill="currentColor" />
-                <line x1="12" y1="12" x2="12" y2="17" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-              </svg>
-            </div>
-            <div>
-              <p className="label mb-2">{methods.insights.subtitle}</p>
-              <h4 className="mb-3 text-xl font-bold text-[#14305f]" style={{ fontFamily: "var(--font-playfair)" }}>
-                {methods.insights.title}
-              </h4>
-              <p className="text-sm leading-relaxed text-[#5a6478]">{methods.insights.body}</p>
-            </div>
-          </div>
-        </div>
-      </Reveal>
 
       {/* Certification logos */}
       <Reveal delay={0.1}>

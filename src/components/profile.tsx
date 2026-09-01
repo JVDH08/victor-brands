@@ -29,12 +29,16 @@ export function Profile() {
         <div className="flex flex-col gap-10">
           <Reveal>
             <Parallax distance={28} className="overflow-hidden rounded-2xl shadow-[0_24px_60px_rgba(20,48,95,0.16)]">
+              {/* Groepsfoto: liggend 3:2, ongeveer de bronverhouding (1280x877),
+                  zodat er nauwelijks wordt bijgesneden. Geen scale-105 — dat
+                  zou de mensen aan de randen afsnijden. */}
               <Image
-                src={images.portraitEnhanced}
-                alt="Victor Brands — trainer, trainingsacteur & teamcoach"
-                width={700}
-                height={840}
-                className="aspect-[5/6] w-full scale-105 object-cover object-top"
+                src={images.senioriteit}
+                alt="Victor Brands begeleidt een groep deelnemers tijdens een training op de werkvloer"
+                width={1280}
+                height={877}
+                sizes="(max-width: 1024px) 90vw, 42vw"
+                className="aspect-[3/2] w-full object-cover object-center"
               />
             </Parallax>
           </Reveal>

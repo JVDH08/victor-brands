@@ -84,6 +84,24 @@ export function Nav() {
         </div>
       </motion.header>
 
+      {/* Tagline — eigen regel direct onder de headerbalk. Staat bewust BUITEN
+          de fixed header, zodat hij met de pagina meescrollt. pt-[72px] vangt
+          de hoogte van de headerbalk op (h-10 logo + py-4 = 40 + 32). Zelfde
+          container/padding als de balk, dus links uitgelijnd op het logo. */}
+      <motion.div
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.35, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        className="relative z-10 pt-[72px]"
+      >
+        <div className="mx-auto max-w-7xl px-6 pt-2 pb-4 lg:px-10">
+          {/* Wrapt vanzelf op smalle schermen */}
+          <p className="text-xs font-semibold tracking-widest text-[#2563eb] uppercase">
+            {nav.tagline}
+          </p>
+        </div>
+      </motion.div>
+
       <AnimatePresence>
         {menuOpen && (
           <motion.div

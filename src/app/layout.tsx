@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     "communicatie",
     "managementteam",
     "overheid",
-    "Amsterdam",
+    "Haarlem",
     "Victor Brands",
   ],
 };

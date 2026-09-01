@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { siteContent } from "@/content";
-import { Reveal, WordReveal } from "@/components/motion-primitives";
+import { Reveal, WordReveal, ease } from "@/components/motion-primitives";
 
 const { contact } = siteContent;
+const { interests } = contact;
 type Status = "idle" | "sending" | "error";
 const field =
   "w-full border-b border-[rgba(20,48,95,0.18)] bg-transparent px-0 py-4 text-[#14305f] placeholder-[#9aa3b5] outline-none transition-colors duration-300 focus:border-[#2563eb] text-sm";
@@ -13,10 +14,45 @@ const field =
 export function Contact() {
   const [sent, setSent] = useState(false);
   const [status, setStatus] = useState<Status>("idle");
+  const [selected, setSelected] = useState<string[]>([]);
+  const [other, setOther] = useState("");
+  const [interestError, setInterestError] = useState(false);
+  const firstInterestRef = useRef<HTMLInputElement>(null);
+
+  const showOther = selected.includes(interests.otherId);
+  const showBookNote = selected.includes(interests.noteForId);
+
+  // De knop "Vraag het boek aan" in de boeksectie stuurt dit event, zodat de
+  // bijbehorende optie hier alvast aangevinkt staat.
+  useEffect(() => {
+    function onInterest(e: Event) {
+      const id = (e as CustomEvent<string>).detail;
+      if (!interests.options.some((o) => o.id === id)) return;
+      setSelected((prev) => (prev.includes(id) ? prev : [...prev, id]));
+      setInterestError(false);
+    }
+    window.addEventListener("victor:interest", onInterest);
+    return () => window.removeEventListener("victor:interest", onInterest);
+  }, []);
+
+  function toggleInterest(id: string) {
+    setSelected((prev) => {
+      const next = prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id];
+      if (next.length) setInterestError(false);
+      return next;
+    });
+  }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (status === "sending") return;
+
+    // Minimaal één interesse verplicht — inline, geen native validatiepopup.
+    if (selected.length === 0) {
+      setInterestError(true);
+      firstInterestRef.current?.focus();
+      return;
+    }
 
     const form = e.currentTarget;
     const fd = new FormData(form);
@@ -25,6 +61,8 @@ export function Contact() {
       email: String(fd.get("email") ?? ""),
       phone: String(fd.get("phone") ?? ""),
       message: String(fd.get("message") ?? ""),
+      interests: selected,
+      interestOther: showOther ? other.trim() : "",
       // honeypot — only bots fill this
       company: String(fd.get("company") ?? ""),
     };
@@ -161,6 +199,104 @@ export function Contact() {
                   <label className="label mb-1 block">{contact.formLabels.phone}</label>
                   <input name="phone" type="tel" placeholder={contact.formLabels.phonePlaceholder} className={field} />
                 </div>
+
+                {/* Interesses — echte checkboxes (sr-only) onder een pill-label,
+                    zodat toetsenbord en screenreader gewoon werken. */}
+                <fieldset>
+                  <legend className="label mb-3">{interests.legend}</legend>
+                  <div className="flex flex-wrap gap-2.5">
+                    {interests.options.map((opt, i) => {
+                      const active = selected.includes(opt.id);
+                      return (
+                        <label key={opt.id} className="cursor-pointer">
+                          <input
+                            ref={i === 0 ? firstInterestRef : undefined}
+                            type="checkbox"
+                            name="interests"
+                            value={opt.id}
+                            checked={active}
+                            onChange={() => toggleInterest(opt.id)}
+                            aria-describedby={interestError ? "interests-error" : undefined}
+                            className="peer sr-only"
+                          />
+                          <span
+                            className={`flex items-center gap-2.5 rounded-full border px-4 py-2.5 text-sm transition-all duration-300 peer-focus-visible:ring-2 peer-focus-visible:ring-[#2563eb] peer-focus-visible:ring-offset-2 ${
+                              active
+                                ? "border-[#2563eb] bg-[#eff4ff] font-semibold text-[#14305f]"
+                                : "border-[rgba(20,48,95,0.18)] bg-white text-[#5a6478] hover:border-[rgba(37,99,235,0.45)] hover:text-[#14305f]"
+                            }`}
+                          >
+                            <span
+                              className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full border transition-all duration-300 ${
+                                active
+                                  ? "border-[#2563eb] bg-[#2563eb] text-white"
+                                  : "border-[rgba(20,48,95,0.25)] text-transparent"
+                              }`}
+                            >
+                              <svg viewBox="0 0 10 10" fill="none" className="h-2.5 w-2.5">
+                                <path d="M1.6 5.1l2.1 2.1L8.4 2.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                              </svg>
+                            </span>
+                            {opt.label}
+                          </span>
+                        </label>
+                      );
+                    })}
+                  </div>
+
+                  {interestError && (
+                    <p id="interests-error" role="alert" className="mt-3 text-xs font-medium text-red-600">
+                      {interests.error}
+                    </p>
+                  )}
+
+                  <AnimatePresence initial={false}>
+                    {showOther && (
+                      <motion.div
+                        key="other"
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.35, ease }}
+                        className="overflow-hidden"
+                      >
+                        <div className="pt-5">
+                          <label htmlFor="interest-other" className="label mb-1 block">
+                            {interests.otherLabel}
+                          </label>
+                          <input
+                            id="interest-other"
+                            type="text"
+                            value={other}
+                            onChange={(e) => setOther(e.target.value)}
+                            placeholder={interests.otherPlaceholder}
+                            className={field}
+                          />
+                        </div>
+                      </motion.div>
+                    )}
+
+                    {showBookNote && (
+                      <motion.div
+                        key="book-note"
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.35, ease }}
+                        className="overflow-hidden"
+                      >
+                        <p className="mt-4 flex items-start gap-2.5 rounded-xl border border-[rgba(37,99,235,0.15)] bg-[#eff4ff] px-4 py-3 text-xs leading-relaxed text-[#14305f]">
+                          <span className="mt-0.5 flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full bg-[#2563eb] text-white">
+                            <svg viewBox="0 0 10 10" fill="none" className="h-2 w-2">
+                              <path d="M5 2.2v3.2M5 7.4h.01" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+                            </svg>
+                          </span>
+                          {interests.bookNote}
+                        </p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </fieldset>
 
                 {/* Honeypot — hidden from humans, catches spam bots. Not announced to screen readers. */}
                 <div aria-hidden="true" className="absolute left-[-9999px] top-[-9999px] h-0 w-0 overflow-hidden">

@@ -56,10 +56,25 @@ export function Book() {
             </p>
             <p className="mb-5 text-sm leading-relaxed text-[#9fb6d9]">{book.body1}</p>
             <p className="text-sm leading-relaxed text-[#9fb6d9]">{book.body2}</p>
-            <div className="mt-8 inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/5 px-5 py-3">
-              <span className="flex h-2 w-2 rounded-full bg-[#5b9bf5]" />
-              <span className="text-sm font-semibold text-white">{book.soldOutLabel}</span>
-              <span className="text-xs text-[#9fb6d9]">— {book.soldOutNote}</span>
+            {/* data-scroll-to laat SmoothScroll (Lenis) het scrollen afhandelen;
+                het custom event vinkt de boek-optie in het formulier aan. */}
+            <div className="mt-10">
+              <p className="mb-5 text-sm leading-relaxed text-[#cdddf7]">{book.requestLine}</p>
+              <button
+                type="button"
+                data-scroll-to="#contact"
+                onClick={() =>
+                  window.dispatchEvent(
+                    new CustomEvent("victor:interest", { detail: book.requestInterestId }),
+                  )
+                }
+                className="btn-blue"
+              >
+                {book.requestCta}
+                <svg viewBox="0 0 16 16" fill="none" className="h-3.5 w-3.5">
+                  <path d="M2 8h12M8 2l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </button>
             </div>
           </Reveal>
 

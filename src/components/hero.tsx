@@ -21,10 +21,13 @@ export function Hero() {
   const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
 
   return (
+    // De taglineregel onder de header staat nu in de flow bóven de hero
+    // (7rem hoog: 72px header-offset + pt-2 + regel + pb-4). Die trekken we
+    // eraf, zodat header + tagline + hero samen exact één viewport vullen.
     <section
       ref={ref}
       id="home"
-      className="relative flex min-h-screen items-center overflow-hidden bg-white"
+      className="relative flex min-h-screen items-center overflow-hidden bg-white md:min-h-[calc(100vh-7rem)]"
     >
       {/* Soft blue ambient field */}
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_15%_30%,rgba(37,99,235,0.07),transparent)]" />
@@ -41,18 +44,11 @@ export function Hero() {
         <div className="absolute inset-0 bg-gradient-to-r from-white via-white/80 to-white/40" />
       </motion.div>
 
-      <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-10 px-8 pt-28 pb-16 md:grid-cols-[1.05fr_0.95fr] md:gap-14 md:px-[8vw] md:pt-0 md:pb-0">
+      {/* pt-6 i.p.v. pt-28: de tagline-strip vangt de fixed header nu al op,
+          dit is alleen nog de ademruimte onder die regel. */}
+      <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-10 px-8 pt-6 pb-16 md:grid-cols-[1.05fr_0.95fr] md:gap-14 md:px-[8vw] md:pt-0 md:pb-0">
         {/* Text */}
         <motion.div style={{ y: textY, opacity }}>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.9, ease }}
-            className="label mb-5"
-          >
-            {hero.label}
-          </motion.p>
-
           <h1
             className="mb-7 max-w-full break-words text-[clamp(3.5rem,8vw,7rem)] font-bold leading-[0.92] tracking-tight text-[#14305f]"
             style={{ fontFamily: "var(--font-playfair)" }}
@@ -146,17 +142,20 @@ export function Hero() {
             style={{ y: portraitY }}
             className="relative z-10 overflow-hidden rounded-3xl shadow-[0_30px_80px_rgba(20,48,95,0.28)]"
           >
+            {/* Bron is exact 3:4 (960x1280), dus object-cover snijdt niets weg. */}
             <Image
               src={hero.portraitUrl}
-              alt="Victor Brands — Trainer, Trainingsacteur & Coach"
-              width={896}
-              height={1200}
+              alt="Portret van Victor Brands in donkerblauw colbert, trainer, trainingsacteur en teamcoach"
+              width={960}
+              height={1280}
+              sizes="(max-width: 768px) 90vw, 40vw"
               className="aspect-[3/4] w-full object-cover object-top"
               priority
             />
-            {/* Subtle blue duotone wash to tie B&W photo to the palette */}
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#14305f]/30 via-transparent to-transparent" />
-            <div className="pointer-events-none absolute inset-0 bg-[#2563eb]/[0.06] mix-blend-overlay" />
+            {/* Lichte vignettering onderaan voor diepte. De blauwe duotone-wash
+                is weg: die was er om de zwart-witfoto in het palet te trekken en
+                verkleurde de nieuwe kleurenfoto. */}
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#14305f]/20 via-transparent to-transparent" />
           </motion.div>
 
           {/* Floating caption chip */}

@@ -72,13 +72,16 @@ export function About() {
 
         {/* Parallax portrait accent */}
         <Reveal delay={0.15} className="hidden lg:block">
-          <Parallax distance={40} className="h-72 w-56 overflow-hidden rounded-2xl shadow-[0_24px_60px_rgba(20,48,95,0.18)]">
+          {/* Liggend 16:9 i.p.v. het vorige staande blokje — anders zou de
+              filmstill tot een smalle strook worden bijgesneden. */}
+          <Parallax distance={40} className="aspect-video w-[22rem] overflow-hidden rounded-2xl shadow-[0_24px_60px_rgba(20,48,95,0.18)]">
             <Image
-              src={images.portraitOriginal}
-              alt="Victor Brands"
-              width={300}
-              height={400}
-              className="h-full w-full scale-110 object-cover object-top"
+              src={images.verhaal}
+              alt="Filmstill uit de verfilming van Victors verhaal: twee mannen 's avonds op straat"
+              width={1920}
+              height={1027}
+              sizes="352px"
+              className="h-full w-full object-cover object-center"
             />
           </Parallax>
         </Reveal>

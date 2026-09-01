@@ -7,7 +7,7 @@
 
 export const siteContent = {
   meta: {
-    title: "Victor Brands — Trainer, trainingsacteur & teamcoach | Amsterdam",
+    title: "Victor Brands — Trainer, trainingsacteur & teamcoach | Haarlem",
     description:
       "Victor Brands traint en coacht managementteams, vastgelopen teams en professionals bij overheid en bedrijfsleven. Concreet werk aan leiderschap, samenwerking en communicatie — met Insights Discovery, HBDI® en DISC.",
   },
@@ -15,6 +15,11 @@ export const siteContent = {
   // Central image library — all photos from victorbrands.nl + Higgsfield-enhanced
   images: {
     logo: "https://www.victorbrands.nl/wp-content/uploads/2018/02/logo.fw_.png",
+    // Eigen foto's in /public/images. Kleur, geen zwart-wit.
+    // heroPortrait 960x1280 (3:4) · senioriteit 1280x877 · verhaal 1920x1027 (16:9)
+    heroPortrait: "/images/victor-hero.jpeg",
+    senioriteit: "/images/victor-senioriteit.jpeg",
+    verhaal: "/images/victor-verhaal.jpg",
     // Real verified photo of Victor Brands (from comedytrain.nl)
     portraitOriginal:
       "https://www.comedytrain.nl/wp-content/uploads/2018/06/victor_brands_0.jpg",
@@ -49,10 +54,12 @@ export const siteContent = {
       { label: "Referenties", href: "#referenties" },
     ],
     cta: "Kennismakingsgesprek",
+    // Positioneringsregel. Staat als eigen regel direct ONDER de headerbalk
+    // (buiten de fixed header, scrollt dus mee met de pagina).
+    tagline: "Haarlem · Trainer, Trainingsacteur & Teamcoach",
   },
 
   hero: {
-    label: "Amsterdam · Trainer, Trainingsacteur & Teamcoach",
     name: "Victor",
     nameSuffix: "Brands",
     // Maakt binnen één blik duidelijk: WAT (trainer/acteur/coach), VOOR WIE
@@ -67,8 +74,7 @@ export const siteContent = {
       { number: "3", label: "Erkende methodieken" },
       { number: "9", label: "Trainingsprogramma's" },
     ],
-    portraitUrl:
-      "https://d8j0ntlcm91z4.cloudfront.net/user_3EOJXXOi3zIKWUH2mnlkIeXI6wM/hf_20260605_113502_d1785f19-6964-465e-9c96-22d3f0a214eb.png",
+    portraitUrl: "/images/victor-hero.jpeg",
     backgroundUrl:
       "https://d8j0ntlcm91z4.cloudfront.net/user_3EOJXXOi3zIKWUH2mnlkIeXI6wM/hf_20260605_111936_fad43455-659c-4a10-ad73-5251ebcbcdc4.png",
   },
@@ -118,7 +124,7 @@ export const siteContent = {
       {
         period: "Nu",
         role: "Trainer, trainingsacteur & teamcoach",
-        org: "Eigen praktijk · Amsterdam",
+        org: "Eigen praktijk · Haarlem",
       },
       {
         period: "20+ jaar",
@@ -248,20 +254,18 @@ export const siteContent = {
         { key: "C", label: "Consciëntieus", color: "#2980b9", desc: "Analytisch, nauwkeurig, kwaliteitsgericht. Werkt systematisch en zorgvuldig." },
       ],
     },
-    hbdi: {
-      title: "HBDI® Hersenkwadranten",
-      subtitle: "Denkvoorkeurstijlen",
-      quadrants: [
-        { key: "A", label: "Analytisch", color: "#2980b9", desc: "Logisch, feitelijk, kwantitatief. Denkt in cijfers, analyses en kritisch redeneren." },
-        { key: "D", label: "Strategisch", color: "#e8b84b", desc: "Holistisch, creatief, toekomstgericht. Denkt in visies, concepten en grote lijnen." },
-        { key: "B", label: "Gestructureerd", color: "#27ae60", desc: "Georganiseerd, gepland, sequentieel. Denkt in processen, procedures en structuur." },
-        { key: "C", label: "Interpersoonlijk", color: "#c0392b", desc: "Empathisch, communicatief, mensgericht. Denkt in gevoelens, relaties en samenwerking." },
-      ],
-    },
+    // Zelfde datastructuur als `disc`, zodat beide met dezelfde kaartcomponent
+    // worden gerenderd. Verschil: Insights toont een gekleurde cirkel i.p.v.
+    // een letter (variant="dot" in methods.tsx).
     insights: {
-      title: "Kleurrijke zelfkennis",
+      title: "Kleurenergieën",
       subtitle: "Insights Discovery",
-      body: "Naast DISC en HBDI® werkt Victor ook met Insights Discovery — een methodiek die persoonlijkheid vertaalt in vier kleuren. Inzicht in jezelf en anderen is de sleutel tot betere communicatie, sterkere teams en duurzame gedragsverandering.",
+      quadrants: [
+        { key: "vurig-rood", label: "Vurig Rood", color: "#c0392b", desc: "Daadkrachtig, direct en resultaatgericht. Neemt initiatief en gaat recht op het doel af." },
+        { key: "zonnig-geel", label: "Zonnig Geel", color: "#e8b84b", desc: "Enthousiast, sociaal en inspirerend. Brengt energie en verbinding in de groep." },
+        { key: "zeegroen", label: "Zeegroen", color: "#27ae60", desc: "Betrokken, geduldig en harmoniezoekend. Luistert en houdt rekening met anderen." },
+        { key: "koel-blauw", label: "Koel Blauw", color: "#2980b9", desc: "Analytisch, precies en weloverwogen. Werkt gestructureerd en denkt eerst na." },
+      ],
     },
     certificationsLabel: "Officieel gecertificeerd",
     certifications: [
@@ -322,63 +326,123 @@ export const siteContent = {
     quoteRole: "Functie, organisatie — in te vullen",
   },
 
-  // Echte referenties zoals eerder verzameld van victorbrands.nl. Nieuwe
-  // testimonials kunnen hieronder worden toegevoegd — gebruik uitsluitend
-  // echte, herleidbare citaten (naam, functie, organisatie). Geen anonieme
-  // of verzonnen reviews.
+  // Echte referenties, letterlijk overgenomen van victorbrands.nl/referenties/.
+  // Gebruik uitsluitend echte, herleidbare citaten (naam, functie, organisatie).
+  // Geen anonieme of verzonnen reviews.
+  //
+  // Datamodel per referentie:
+  //   id          — stabiele slug, ook gebruikt als React key
+  //   naam        — volledige naam
+  //   functie     — functietitel ("" als de bron er geen noemt)
+  //   organisatie — bedrijf/instelling
+  //   categorie   — "trainer" | "trainingsacteur" (kopjes op de bronpagina)
+  //   kort        — 1-2 sterkste zinnen, voor de slider
+  //   volledig    — array van alinea's, letterlijk overgenomen. Regels die
+  //                 met "• " beginnen horen bij een opsomming en worden als
+  //                 lijst gerenderd.
   testimonials: {
     sectionLabel: "Referenties",
     heading: "Wat opdrachtgevers",
     headingAccent: "zeggen",
+    categoryLabels: {
+      trainer: "Als trainer",
+      trainingsacteur: "Als trainingsacteur",
+    },
+    readMore: "Lees volledig",
+    closeLabel: "Sluiten",
+    prevLabel: "Vorige referentie",
+    nextLabel: "Volgende referentie",
     items: [
       {
-        text: "Victor is een effectieve trainer met een eigen aanpak gericht op communicatie en change management.",
-        name: "Joris van Thiel",
-        role: "Director TeleSales",
-        company: "Heineken",
-        category: "Als trainer",
+        id: "joris-van-thiel",
+        naam: "Joris van Thiel",
+        functie: "Director TeleSales",
+        organisatie: "Heineken",
+        categorie: "trainer",
+        kort: "Victor is een effectieve trainer met een eigen en zeer positieve aanpak, gericht op communicatieverbetering en change management. Hij is een begrip en graag geziene trainer in mijn bedrijf.",
+        volledig: [
+          "Victor is een effectieve trainer met een eigen en zeer positieve aanpak, gericht op communicatieverbetering en change management. Hij is het neusje van de zalm voor het bespreekbaar maken en intrainen van aanspreken op gedrag. Met een gepaste dosis humor en ongelofelijk veel respect voor de bagage van de getrainden geeft Victor zowel het individu als de groep een eerlijk inzicht in eigen gedrag en oefent hij met ze naar de gewenste situatie toe. Effectief, respect, praktisch, humor, doen en groeien zijn woorden die Victor kenmerken. Hij is een begrip en graag geziene trainer in mijn bedrijf.",
+        ],
       },
       {
-        text: "Een toptrainer die deelnemers weet te inspireren! Victor creëert veiligheid, legt theorie goed uit en gebruikt veel humor.",
-        name: "Melvin Littel",
-        role: "Trainer",
-        company: "Pepperminds",
-        category: "Als trainer",
+        id: "melvin-littel",
+        naam: "Melvin Littel",
+        functie: "Trainer",
+        organisatie: "Pepperminds",
+        categorie: "trainer",
+        kort: "Een toptrainer die deelnemers weet te inspireren! Allereerst creëert Victor een klimaat, waarin iedereen zich veilig voelt om te leren.",
+        volledig: [
+          "Een toptrainer die deelnemers weet te inspireren!",
+          "Als trainer bij Pepperminds maak ik veel trainingen mee van externe trainers. Daarbij kijk ik naar de inhoud, maar vooral ook naar de manier waarop de training gegeven wordt. Ik heb meerdere keren een training van Victor Brands bijgewoond en ik ben erg enthousiast over zijn aanpak. Allereerst creëert Victor een klimaat, waarin iedereen zich veilig voelt om te leren. Hij doet dit door persoonlijke verhalen te vertellen. Niet alleen over de stof, maar ook over zichzelf, inclusief zijn kwetsbaarheden. Dat vind ik erg sterk en je krijgt al snel het gevoel dat je Victor goed kent. Verder vind ik dat Victor de theorie heel goed uitlegt en vertaalt naar de concrete setting van het bedrijf. Alle modellen, nieuwe feitjes en theorieën kunnen zo direct worden gelinkt naar de praktijk van de trainees. Victor houdt ook goed rekening met de leerstijl van Kolb. Door zijn afwisseling in de oefeningen houdt hij de training boeiend en worden deze door veel verschillende type deelnemers als interessant ervaren. En: Victor gebruikt vet veel humor! Dat maakt zijn training extra leuk. Elke 20 minuten heb ik gelachen. Door zijn verhalen, reacties op opmerkingen of vragen uit de zaal, werkvormen of gewoon door het opzetten van een grappig gezicht. Voor mij is dat een prettige manier van leren; hoe meer plezier ik heb, hoe beter mijn focus is. Ik merk dat ook mensen die zich minder goed kunnen concentreren, bij Victor wél acht uur lang hun aandacht erbij kunnen houden. Wat ik tot slot mooi vind aan Victor, is dat hij ook voor- en achteraf bezig is met de impact van zijn training. Hij spreekt vooraf veel mensen, stuurt opdrachten en laat de training naadloos aansluiten op de behoefte. Ook zijn follow-up is prima in de vorm van leuke filmpjes, foto's en artikelen. Kortom: Victor is een echte aanrader met kennis van zaken!",
+        ],
       },
       {
-        text: "Door Victors bijdrage weet hij het rendement van trainingen te verhogen met professionele voorbereiding tot evaluatie.",
-        name: "Henriëtte Martens",
-        role: "Educatie- en trainingscoördinator",
-        company: "Heineken",
-        category: "Als trainingsacteur",
+        id: "annette-balk",
+        naam: "Annette Balk",
+        functie: "",
+        organisatie: "Falke en Verbaan",
+        categorie: "trainer",
+        kort: "Victor is een aimabel mens, zeer kundig in zijn vak en voor opdrachtgevers vaak de doorslaggevende factor bij de keuze voor leer- en ontwikkelprogramma's.",
+        volledig: [
+          "De eerste indruk welk Victor bij mij en bij de deelnemers achterliet, toen ik hem 6 jaar geleden tijdens een training voor het eerst inzette als gedragsacteur, is onuitwisbaar. Deze indruk heeft hij in de jaren dat wij nu samenwerken alleen maar meer 'professionele body' gegeven. Deze prettige connectie is voor mij aanleiding geweest dat ik Victor begin 2011 hebt gevraagd om sparringpartner te zijn voor een nieuw initiatief met een focus op Talentontwikkeling. Over talent gesproken….de 5 toptalenten van Victor zijn:",
+          "• Sterke observeerder",
+          "• Zet zijn humor in om de ander te laten excelleren",
+          "• Goed ontwikkelde emotionele intelligentie",
+          "• Scherp in zijn feedback op gedrag",
+          "• Verkoopt zichzelf",
+          "En bovenal is Victor een aimabel mens, zeer kundig in zijn vak en voor opdrachtgevers vaak de doorslaggevende factor bij de keuze voor leer- en ontwikkelprogramma's.",
+        ],
       },
       {
-        text: "Deskundig, flexibel, integer en 3-dimensionaal denkend met energie. Hij inspireert zonder vertrouwen te schaden.",
-        name: "Stance Gaspersz",
-        role: "Manager",
-        company: "Rijkswaterstaat",
-        category: "Als trainingsacteur",
+        id: "henriette-martens",
+        naam: "Henriëtte Martens",
+        functie: "Educatie- en trainingscoördinator",
+        organisatie: "Heineken",
+        categorie: "trainingsacteur",
+        kort: "Door de bijdrage van Victor weet hij het rendement van trainingen te verhogen. Hij is een echte professional die van voorbereiding tot evaluatie betrokken is om een goed resultaat neer te zetten voor zijn klant.",
+        volledig: [
+          "Door de bijdrage van Victor – als acteur naast een trainer of zelf als trainingsacteur – weet hij het rendement van trainingen te verhogen. Hij is in staat om zich in te leven in de ander, waardoor hij de ander uitdaagt om uit zijn/haar comfortzone te komen en meer te halen uit een training. Victor is een echte professional die van voorbereiding tot evaluatie betrokken is om een goed resultaat neer te zetten voor zijn klant. Dit doet hij met een grote mate van betrokkenheid, gedrevenheid, sensitiviteit en humor. Elke keer weer is het heerlijk om met Victor samen te werken.",
+        ],
       },
       {
-        text: "Victors kracht: snel inschatten van deelnemers, grote betrokkenheid, humor, directheid en motivatie in een veilige omgeving.",
-        name: "Wendy van Middelkoop",
-        role: "Decaan Leiderschap en organisatie",
-        company: "IFV (Brandweer)",
-        category: "Als trainingsacteur",
+        id: "mark-j-bouman",
+        naam: "Mark J. Bouman",
+        functie: "",
+        organisatie: "the Art of Learning",
+        categorie: "trainingsacteur",
+        kort: "Victor's kracht zit in twee ongewone combinaties: hij is specialist én allrounder, en hij heeft impact én is een stille kracht. Werken met Victor is al 3 jaar een voorrecht en plezier.",
+        volledig: [
+          "Victor's kracht zit in twee ongewone combinaties:",
+          "1. Hij is Specialist EN allrounder: als trainingsacteur kent hij alle klappen van de zweep EN hij is breed en ervaren: hij denkt mee over de aanpak en op cruciale momenten traint en faciliteert hij. Daarnaast is hij in staat om op basis van een half woord te improviseren.",
+          "2. Victor heeft impact ÉN hij is een stille kracht. Hij is groot, direct en ontwapenend in zijn benadering. En let op: hij brengt echte humor mee die borrelt met levendigheid, Hij is ook discreet: trekt de groep langs een dood punt, kiest een subtiele interventie om een deelnemer precies het noodzakelijke zelfinzicht te geven.",
+          "Werken met Victor is al 3 jaar een voorrecht en plezier.",
+        ],
       },
       {
-        text: "Victor is specialist én allrounder, heeft impact én is stille kracht met echte humor en discretie.",
-        name: "Mark J. Bouman",
-        role: "Director",
-        company: "the Art of Learning",
-        category: "Als trainingsacteur",
+        id: "stance-gaspersz",
+        naam: "Stance Gaspersz",
+        functie: "",
+        organisatie: "Rijkswaterstaat",
+        categorie: "trainingsacteur",
+        kort: "Deskundig, flexibel, integer en 3-dimensionaal denkend vol energie en open minded. Hij laat je in je spiegel kijken zonder het vertrouwen of de veilige omgeving in twijfel te trekken.",
+        volledig: [
+          "Deskundig, flexibel, integer en 3-dimensionaal denkend vol energie en open minded. Dit zijn de eerste woorden die in me opkomen wanneer ik Victor 'moet' omschrijven als coach/trainer.",
+          "Om een groep mensen in beweging te zetten in een overheidsorganisatie is het prettig samen te mogen werken met een professional die dat kan, de verbinding maakt en de groep 'enthousiasmeert'.",
+          "Hij laat je in je spiegel kijken zonder het vertrouwen of de veilige omgeving in twijfel te trekken.",
+          "Hij inspireert en motiveert om niet de ander te willen veranderen maar eerst bij jezelf te beginnen. Waarbij de aandacht ligt welke competenties je hebt, wat je daarmee kunt en hoe je het zou kunnen optimaliseren.",
+          "Binnen het cluster ZN A Wegen Rijkswaterstaat heeft dit in een nieuwe contractvorm van integraal samenwerken in de keten nu al zijn vruchten afgeworpen en gaan we graag met Victor de vervolgstappen maken om tot een samenwerkend team te komen.",
+        ],
       },
       {
-        text: "De samenwerking met Victor voelt als samenwerken met een collega, zowel qua inhoud als qua sfeer.",
-        name: "Annette Balk",
-        role: "Partner",
-        company: "Falke en Verbaan",
-        category: "Als trainer",
+        id: "wendy-van-middelkoop",
+        naam: "Wendy van Middelkoop",
+        functie: "Decaan Leiderschap en organisatie",
+        organisatie: "IFV",
+        categorie: "trainingsacteur",
+        kort: "Zijn kracht ligt in het snel inschatten van de deelnemers waardoor hij zich kan aanpassen aan de doelgroep. Deelnemers worden door de inzet van Victor gemotiveerd, betrokken, enthousiast en gefocust.",
+        volledig: [
+          "Victor zet zich nu ruim 4 jaar in op het gebied van leiderschapsleergangen en -trainingen voor brandweerofficieren. We zetten hem daarbij graag in, voor diverse doelgroepen. Zijn kracht ligt in het snel inschatten van de deelnemers waardoor hij zich kan aanpassen aan de doelgroep. Zowel bij individuele voorgesprekken als plenaire trainingssessies is dit het geval. Met grote betrokkenheid en humor stelt hij de deelnemers in staat om, in een veilige omgeving, nieuw gedrag en gesprekstechnieken toe te passen en aan te leren. Hij is direct waar kan met oog voor iedere individuele deelnemer. Hij zoekt grenzen op, zonder eroverheen te gaan. Deelnemers worden door de inzet van Victor gemotiveerd, betrokken, enthousiast en gefocust. Met ons als organisatie denkt hij mee, waarbij het belang van de deelnemers voorop staat.",
+        ],
       },
     ],
   },
@@ -394,8 +458,12 @@ export const siteContent = {
     body2:
       "Die columns werden het boek Vast in de VS. Het verscheen in 2005 en is tot op de dag van vandaag de meest indringende beschrijving van wat er met een mens gebeurt als hij alles verliest — en hoe hij zichzelf terugvindt.",
     orderEmail: "victor@victorbrands.nl",
-    soldOutLabel: "Momenteel uitverkocht",
-    soldOutNote: "Het boek is op dit moment niet leverbaar.",
+    // CTA onder de boektekst. De knop scrollt naar het contactformulier en
+    // vinkt daar de interesse-optie met dit id automatisch aan
+    // (zie contact.interests.options).
+    requestLine: "Interesse in het boek? Victor heeft nog exemplaren liggen.",
+    requestCta: "Vraag het boek aan",
+    requestInterestId: "boek",
     volkskrantNote:
       "Zijn columns verschenen wekelijks in de Volkskrant onder het pseudoniem Jan de Graaf. De arrestatiegetuigenis is nog steeds beschikbaar via zijn website.",
     backgroundUrl:
@@ -428,9 +496,30 @@ export const siteContent = {
     linkedin: "", // bijv. "https://www.linkedin.com/in/victorbrands"
     linkedinLabel: "LinkedIn",
     placeholderNote: "In te vullen",
-    location: "Amsterdam, Nederland",
+    location: "Haarlem, Nederland",
     locationLabel: "Standplaats",
     principles: ["Veiligheid", "Interactiviteit", "Humor"],
+    // Interessekeuzes in het formulier. Volgorde hier = volgorde op de site.
+    //   label — op het kaartje en in de mailbody
+    //   short — in het onderwerp van de mail ("… - Coach, Boek - Naam")
+    // `otherId` toont het vrije tekstveld, `noteForId` toont `bookNote`.
+    interests: {
+      legend: "Ik ben geïnteresseerd in:",
+      error: "Kies minimaal één optie.",
+      otherLabel: "Waar gaat het om?",
+      otherPlaceholder: "Vertel kort waar het om gaat",
+      bookNote: "Victor neemt contact met je op over beschikbaarheid en bezorging.",
+      otherId: "anders",
+      noteForId: "boek",
+      options: [
+        { id: "coach", label: "Victor als coach", short: "Coach" },
+        { id: "trainer", label: "Victor als trainer", short: "Trainer" },
+        { id: "trainingsacteur", label: "Victor als trainingsacteur", short: "Trainingsacteur" },
+        { id: "teamcoach", label: "Victor als teamcoach", short: "Teamcoach" },
+        { id: "boek", label: "Het boek 'Vast in de VS'", short: "Boek" },
+        { id: "anders", label: "Anders", short: "Anders" },
+      ],
+    },
     formLabels: {
       name: "Uw naam",
       namePlaceholder: "Voor- en achternaam",
@@ -450,7 +539,7 @@ export const siteContent = {
   },
 
   footer: {
-    copy: "VICTOR BRANDS · AMSTERDAM",
+    copy: "VICTOR BRANDS · HAARLEM",
     tagline:
       "Trainer, trainingsacteur & teamcoach — voor managementteams, teams en organisaties bij overheid en bedrijfsleven.",
     email: "victor@victorbrands.nl",
