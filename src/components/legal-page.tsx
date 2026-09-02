@@ -7,7 +7,7 @@ const { legal, nav, contact } = siteContent;
 type LegalContent = {
   title: string;
   updated: string;
-  disclaimer: string;
+  disclaimer?: string;
   intro: string;
   sections: { heading: string; body: string }[];
 };
@@ -54,10 +54,12 @@ export function LegalPage({ data }: { data: LegalContent }) {
         </h1>
         <p className="mt-3 text-xs tracking-widest text-[#9aa3b5] uppercase">{data.updated}</p>
 
-        {/* Concept disclaimer */}
-        <div className="mt-8 rounded-xl border border-amber-300 bg-amber-50 px-5 py-4 text-sm text-amber-800">
-          {data.disclaimer}
-        </div>
+        {/* Concept-disclaimer — alleen zichtbaar zolang `disclaimer` is ingevuld */}
+        {data.disclaimer && (
+          <div className="mt-8 rounded-xl border border-amber-300 bg-amber-50 px-5 py-4 text-sm text-amber-800">
+            {data.disclaimer}
+          </div>
+        )}
 
         <p className="mt-8 leading-relaxed text-[#5a6478]">{data.intro}</p>
 

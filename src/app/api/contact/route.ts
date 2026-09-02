@@ -14,8 +14,60 @@ const TO_EMAIL = process.env.CONTACT_TO_EMAIL || "victor@victorbrands.nl";
 // Resend (via DNS), set CONTACT_FROM_EMAIL to e.g. "noreply@victorbrands.nl".
 const FROM_EMAIL = process.env.CONTACT_FROM_EMAIL || "Victor Brands <onboarding@resend.dev>";
 
+// ── Rate limiting ────────────────────────────────────────────────────────────
+// Max. aantal berichten per IP binnen het venster. Beschermt tegen spam en
+// tegen het volgooien van Victors inbox / het Resend-quotum.
+//
+// Dit is een in-memory limiter: op Vercel leeft de Map per warme serverless-
+// instantie. Dat vangt bursts van één afzender prima af, maar is geen harde
+// garantie over alle instanties heen. Voor een keihard limiet: Vercel Firewall
+// (Project → Firewall) of een Upstash Redis-limiter.
+const RATE_LIMIT_MAX = 5;
+const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000; // 10 minuten
+const rateLimitStore = new Map<string, number[]>();
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const windowStart = now - RATE_LIMIT_WINDOW_MS;
+  const recent = (rateLimitStore.get(ip) ?? []).filter((t) => t > windowStart);
+  if (recent.length >= RATE_LIMIT_MAX) {
+    rateLimitStore.set(ip, recent);
+    return true;
+  }
+  recent.push(now);
+  rateLimitStore.set(ip, recent);
+  // Oude IP's opruimen zodat de Map niet eindeloos groeit.
+  if (rateLimitStore.size > 1000) {
+    for (const [key, times] of rateLimitStore) {
+      if (!times.some((t) => t > windowStart)) rateLimitStore.delete(key);
+    }
+  }
+  return false;
+}
+
+function getClientIp(req: Request): string {
+  // Vercel zet het echte client-IP als eerste in x-forwarded-for.
+  const fwd = req.headers.get("x-forwarded-for");
+  if (fwd) return fwd.split(",")[0].trim();
+  return req.headers.get("x-real-ip") ?? "unknown";
+}
+
+// Maximale veldlengtes — voorkomt gigantische payloads en misbruik.
+const MAX_NAME = 200;
+const MAX_EMAIL = 254;
+const MAX_PHONE = 40;
+const MAX_MESSAGE = 5000;
+const MAX_OTHER = 500;
+
 export async function POST(req: Request) {
   try {
+    if (isRateLimited(getClientIp(req))) {
+      return NextResponse.json(
+        { error: "Te veel berichten in korte tijd. Probeer het over een paar minuten opnieuw." },
+        { status: 429 }
+      );
+    }
+
     const body = await req.json();
     const name = typeof body.name === "string" ? body.name : "";
     const email = typeof body.email === "string" ? body.email : "";
@@ -41,6 +93,19 @@ export async function POST(req: Request) {
     ) {
       return NextResponse.json(
         { error: "Vul a.u.b. een geldige naam, e-mail en bericht in." },
+        { status: 400 }
+      );
+    }
+
+    if (
+      name.length > MAX_NAME ||
+      email.length > MAX_EMAIL ||
+      phone.length > MAX_PHONE ||
+      message.length > MAX_MESSAGE ||
+      interestOther.length > MAX_OTHER
+    ) {
+      return NextResponse.json(
+        { error: "Een van de velden is te lang. Kort uw bericht in en probeer het opnieuw." },
         { status: 400 }
       );
     }

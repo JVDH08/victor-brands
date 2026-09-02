@@ -524,69 +524,77 @@ export const siteContent = {
   legal: {
     backLabel: "Terug naar home",
     contactCta: "Contact opnemen",
+    // Beide teksten zijn definitief geformuleerd op basis van wat de site
+    // daadwerkelijk doet: één contactformulier (via Resend), hosting op
+    // Vercel, geen cookies, geen tracking. Pas de tekst aan zodra dat verandert
+    // (bijv. bij het toevoegen van analytics).
     privacy: {
       slug: "privacy",
       title: "Privacyverklaring",
-      updated: "Laatst bijgewerkt: in te vullen",
-      disclaimer:
-        "Dit is een conceptversie met placeholderteksten. Laat de definitieve privacyverklaring juridisch controleren voordat de site live gaat.",
+      updated: "Laatst bijgewerkt: 2 september 2026",
       intro:
-        "Victor Brands hecht waarde aan uw privacy. In deze verklaring leest u welke persoonsgegevens worden verwerkt, met welk doel, en welke rechten u heeft. Deze tekst is een concept en dient nog te worden afgestemd op de daadwerkelijke werkwijze.",
+        "Victor Brands, gevestigd in Haarlem, hecht waarde aan uw privacy. In deze verklaring leest u welke persoonsgegevens via deze website worden verwerkt, waarom, hoe lang ze worden bewaard en welke rechten u heeft. Victor Brands is de verwerkingsverantwoordelijke voor deze verwerking.",
       sections: [
         {
           heading: "Welke gegevens worden verwerkt?",
-          body: "Wanneer u het contactformulier invult, verwerken wij de gegevens die u zelf opgeeft: uw naam, e-mailadres, eventueel uw telefoonnummer en de inhoud van uw bericht. (Aanvullen met overige verwerkingen indien van toepassing.)",
+          body: "Alleen wat u zelf invult in het contactformulier: uw naam, e-mailadres, eventueel uw telefoonnummer, uw interesse (bijvoorbeeld coaching, training of het boek) en de inhoud van uw bericht. Bij het verzenden wordt ook uw IP-adres kortstondig verwerkt om misbruik van het formulier tegen te gaan; dit wordt niet opgeslagen.",
         },
         {
-          heading: "Met welk doel?",
-          body: "Uw gegevens worden uitsluitend gebruikt om uw vraag te beantwoorden en eventueel contact met u op te nemen over een samenwerking. Wij gebruiken uw gegevens niet voor marketing zonder uw toestemming.",
+          heading: "Met welk doel en op welke grondslag?",
+          body: "Uw gegevens worden uitsluitend gebruikt om uw vraag te beantwoorden en eventueel contact met u op te nemen over een samenwerking of de bestelling van het boek. De grondslag hiervoor is het gerechtvaardigd belang om te reageren op uw verzoek, of – zodra er een samenwerking ontstaat – de uitvoering van een overeenkomst. Uw gegevens worden niet gebruikt voor marketing en niet verkocht.",
         },
         {
-          heading: "Bewaartermijn",
-          body: "Wij bewaren uw gegevens niet langer dan nodig is voor het doel waarvoor ze zijn verzameld. (Concrete bewaartermijn in te vullen.)",
+          heading: "Hoe lang worden gegevens bewaard?",
+          body: "Berichten via het contactformulier worden bewaard zolang dat nodig is om uw vraag af te handelen, en uiterlijk twaalf maanden na het laatste contact. Ontstaat er een samenwerking, dan gelden de bewaartermijnen die daarbij horen, waaronder de wettelijke fiscale bewaarplicht van zeven jaar voor administratieve gegevens.",
         },
         {
-          heading: "Delen met derden",
-          body: "Voor de afhandeling van het contactformulier maken wij gebruik van een e-mailverwerker (Resend). Gegevens worden niet verkocht aan derden. (Verwerkersovereenkomst en overige verwerkers in te vullen.)",
+          heading: "Met wie worden gegevens gedeeld?",
+          body: "Voor het versturen van berichten uit het contactformulier wordt gebruikgemaakt van de e-maildienst Resend, en de website wordt gehost bij Vercel. Beide partijen verwerken gegevens uitsluitend in opdracht van Victor Brands en hebben zich daartoe contractueel verbonden. Omdat deze bedrijven ook buiten de Europese Economische Ruimte actief zijn, zijn passende waarborgen getroffen (zoals standaardcontractbepalingen van de Europese Commissie). Gegevens worden nooit aan andere derden verstrekt, tenzij dat wettelijk verplicht is.",
+        },
+        {
+          heading: "Beveiliging",
+          body: "Deze website wordt uitsluitend via een beveiligde verbinding (HTTPS) aangeboden. Het contactformulier is beschermd tegen spam en misbruik en de verzonden gegevens worden versleuteld verstuurd.",
         },
         {
           heading: "Uw rechten",
-          body: "U heeft het recht op inzage, correctie en verwijdering van uw persoonsgegevens, en u kunt bezwaar maken tegen de verwerking. Neem hiervoor contact op via het e-mailadres onderaan deze pagina.",
+          body: "U heeft het recht om uw persoonsgegevens in te zien, te laten corrigeren of te laten verwijderen, om de verwerking te beperken, om bezwaar te maken tegen de verwerking en om uw gegevens over te dragen. Stuur uw verzoek naar victor@victorbrands.nl; u ontvangt binnen een maand een reactie.",
         },
         {
-          heading: "Contact & klachten",
-          body: "Vragen over deze verklaring? Mail naar victor@victorbrands.nl. U heeft daarnaast het recht een klacht in te dienen bij de Autoriteit Persoonsgegevens.",
+          heading: "Klachten",
+          body: "Heeft u een klacht over de manier waarop Victor Brands met uw gegevens omgaat? Neem dan eerst contact op via victor@victorbrands.nl. Komt u er samen niet uit, dan heeft u het recht een klacht in te dienen bij de Autoriteit Persoonsgegevens.",
+        },
+        {
+          heading: "Wijzigingen",
+          body: "Deze privacyverklaring kan worden aangepast, bijvoorbeeld als de website nieuwe functies krijgt. De meest recente versie staat altijd op deze pagina; de datum bovenaan geeft aan wanneer de tekst voor het laatst is bijgewerkt.",
         },
       ],
     },
     cookies: {
       slug: "cookies",
       title: "Cookiebeleid",
-      updated: "Laatst bijgewerkt: in te vullen",
-      disclaimer:
-        "Dit is een conceptversie met placeholderteksten. Controleer welke cookies en scripts de live site daadwerkelijk plaatst en stem dit beleid daarop af.",
+      updated: "Laatst bijgewerkt: 2 september 2026",
       intro:
-        "In dit cookiebeleid leest u welke cookies deze website gebruikt en waarvoor. Deze tekst is een concept en moet worden afgestemd op de cookies die de live website daadwerkelijk plaatst.",
+        "In dit cookiebeleid leest u hoe deze website omgaat met cookies en vergelijkbare technieken. Het korte antwoord: deze website plaatst geen cookies.",
       sections: [
         {
           heading: "Wat zijn cookies?",
-          body: "Cookies zijn kleine tekstbestanden die bij een bezoek aan een website op uw apparaat worden opgeslagen. Ze worden onder andere gebruikt om een website goed te laten functioneren.",
+          body: "Cookies zijn kleine tekstbestanden die bij een bezoek aan een website op uw apparaat worden opgeslagen. Ze worden bijvoorbeeld gebruikt om voorkeuren te onthouden of om bezoekersgedrag te meten.",
         },
         {
-          heading: "Welke cookies gebruiken wij?",
-          body: "Deze website is gebouwd om zo min mogelijk gegevens te verzamelen. Op dit moment worden er geen tracking- of marketingcookies geplaatst. (Controleer en vul aan zodra er analytics of andere scripts worden toegevoegd.)",
+          heading: "Welke cookies gebruikt deze website?",
+          body: "Geen. Deze website is bewust zo gebouwd dat er geen cookies worden geplaatst: geen analytische cookies, geen marketing- of trackingcookies en geen cookies van derden. Ook de gebruikte lettertypen worden vanaf de website zelf geladen, zodat er geen verbinding met externe partijen nodig is. Daarom wordt er ook geen toestemming (cookiebanner) gevraagd.",
         },
         {
-          heading: "Functionele cookies",
-          body: "Functionele cookies zijn noodzakelijk om de website te laten werken en vereisen geen toestemming. (In te vullen indien van toepassing.)",
+          heading: "Links naar andere websites",
+          body: "Op deze website staan links naar externe diensten, zoals Spotify voor het beluisteren van podcasts. Zodra u zo'n link volgt, verlaat u deze website en geldt het cookie- en privacybeleid van die andere partij.",
         },
         {
-          heading: "Analytische & marketingcookies",
-          body: "Worden er in de toekomst analytische of marketingcookies geplaatst, dan vragen wij hiervoor vooraf uw toestemming. (In te vullen.)",
+          heading: "Wat als dit verandert?",
+          body: "Worden er in de toekomst cookies toegevoegd die niet strikt noodzakelijk zijn, bijvoorbeeld voor bezoekersstatistieken, dan wordt hiervoor eerst uw toestemming gevraagd en wordt dit beleid aangepast.",
         },
         {
           heading: "Cookies beheren",
-          body: "U kunt cookies altijd zelf beheren of verwijderen via de instellingen van uw browser.",
+          body: "U kunt cookies altijd zelf bekijken, blokkeren of verwijderen via de instellingen van uw browser.",
         },
       ],
     },
