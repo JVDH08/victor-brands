@@ -159,7 +159,7 @@ export function Testimonials() {
   const roleLine = [quote.functie, quote.organisatie].filter(Boolean).join(" · ");
 
   return (
-    <section id="testimonials" className="relative overflow-hidden bg-white px-8 py-28 md:px-[8vw] md:py-36">
+    <section id="referenties" className="relative overflow-hidden bg-white px-8 py-28 md:px-[8vw] md:py-36">
       <div
         className="pointer-events-none absolute -top-12 left-[4vw] select-none text-[18rem] font-black leading-none text-[rgba(37,99,235,0.05)]"
         style={{ fontFamily: "var(--font-cormorant)" }}

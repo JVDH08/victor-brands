@@ -104,8 +104,8 @@ export function Methods() {
       </div>
 
       <div className="grid gap-16 lg:grid-cols-2">
-        <QuadrantGrid quadrants={methods.disc.quadrants} title={methods.disc.title} subtitle={methods.disc.subtitle} />
         <QuadrantGrid quadrants={methods.insights.quadrants} title={methods.insights.title} subtitle={methods.insights.subtitle} variant="dot" />
+        <QuadrantGrid quadrants={methods.disc.quadrants} title={methods.disc.title} subtitle={methods.disc.subtitle} />
       </div>
 
       {/* Certification logos */}

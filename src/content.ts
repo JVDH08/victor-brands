@@ -296,36 +296,6 @@ export const siteContent = {
     ],
   },
 
-  // ⚠️ PLACEHOLDER-CASE — in te vullen met een echte, akkoord bevonden klantcase.
-  //    Gebruik geen verzonnen cijfers of citaten. Vervang onderstaande tekst en
-  //    zet `isPlaceholder` op false zodra de case is ingevuld en goedgekeurd.
-  caseStudy: {
-    sectionLabel: "Klantcase",
-    heading: "Van vraagstuk",
-    headingAccent: "naar resultaat",
-    isPlaceholder: true,
-    placeholderBadge: "Voorbeeld — in te vullen",
-    client: "Klantnaam — in te vullen",
-    sector: "Sector / type organisatie — in te vullen",
-    blocks: [
-      {
-        label: "De situatie",
-        body: "Beschrijf hier kort de uitgangssituatie en het vraagstuk van de klant: wat speelde er, en waarom werd Victor gevraagd? (In te vullen.)",
-      },
-      {
-        label: "De aanpak",
-        body: "Beschrijf wat Victor concreet heeft gedaan: de opzet van het traject, de werkvormen en de gebruikte methodieken. (In te vullen.)",
-      },
-      {
-        label: "Het resultaat",
-        body: "Beschrijf het concrete resultaat — het liefst in de woorden van de klant. Geen verzonnen cijfers. (In te vullen.)",
-      },
-    ],
-    quote: "Ruimte voor een afsluitend citaat van de opdrachtgever. (In te vullen.)",
-    quoteName: "Naam — in te vullen",
-    quoteRole: "Functie, organisatie — in te vullen",
-  },
-
   // Echte referenties, letterlijk overgenomen van victorbrands.nl/referenties/.
   // Gebruik uitsluitend echte, herleidbare citaten (naam, functie, organisatie).
   // Geen anonieme of verzonnen reviews.
