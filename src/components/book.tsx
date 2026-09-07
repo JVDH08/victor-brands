@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { siteContent } from "@/content";
-import { Reveal, ease } from "@/components/motion-primitives";
+import { Reveal } from "@/components/motion-primitives";
 
 const { book } = siteContent;
 

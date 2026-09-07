@@ -29,13 +29,6 @@ export function SiteFooter() {
                 {footer.email}
               </a>
             </li>
-            {contact.phone && (
-              <li>
-                <a href={`tel:${contact.phone.replace(/\s+/g, "")}`} className="transition-colors hover:text-[#2563eb]">
-                  {contact.phone}
-                </a>
-              </li>
-            )}
             {contact.linkedin && (
               <li>
                 <a href={contact.linkedin} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-[#2563eb]">

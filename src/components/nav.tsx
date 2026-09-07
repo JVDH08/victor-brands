@@ -2,10 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
 import { siteContent } from "@/content";
 
-const { nav, images } = siteContent;
+const { nav } = siteContent;
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
@@ -38,8 +37,8 @@ export function Nav() {
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-10">
           <a
-            href="#"
-            onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+            href="#home"
+            onClick={(e) => { e.preventDefault(); scrollTo("#home"); }}
             className="group flex items-center gap-3"
           >
             <span

@@ -9,7 +9,7 @@ const csp = [
   "default-src 'self'",
   `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}`,
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob: https://d8j0ntlcm91z4.cloudfront.net https://victorbrands.nl https://www.victorbrands.nl https://www.comedytrain.nl",
+  "img-src 'self' data: blob:",
   "font-src 'self' data:",
   "connect-src 'self'",
   "frame-ancestors 'none'",
@@ -34,14 +34,6 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
-  images: {
-    remotePatterns: [
-      { protocol: "https", hostname: "www.victorbrands.nl" },
-      { protocol: "https", hostname: "victorbrands.nl" },
-      { protocol: "https", hostname: "www.comedytrain.nl" },
-      { protocol: "https", hostname: "d8j0ntlcm91z4.cloudfront.net" },
-    ],
-  },
   async headers() {
     return [{ source: "/(.*)", headers: securityHeaders }];
   },

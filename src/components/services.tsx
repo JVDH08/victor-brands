@@ -102,6 +102,7 @@ function ServiceCard({
             src={image}
             alt={item.title}
             fill
+            sizes="(min-width: 768px) 28vw, 100vw"
             className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-white via-white/10 to-transparent" />

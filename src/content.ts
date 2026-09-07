@@ -12,33 +12,22 @@ export const siteContent = {
       "Victor Brands traint en coacht managementteams, vastgelopen teams en professionals bij overheid en bedrijfsleven. Concreet werk aan leiderschap, samenwerking en communicatie — met Insights Discovery, HBDI® en DISC.",
   },
 
-  // Central image library — all photos from victorbrands.nl + Higgsfield-enhanced
+  // Centrale afbeeldingenlijst. Alles staat lokaal in /public/images — geen
+  // externe hosts meer, zodat de site blijft werken als oude domeinen aflopen.
   images: {
-    logo: "https://www.victorbrands.nl/wp-content/uploads/2018/02/logo.fw_.png",
-    // Eigen foto's in /public/images. Kleur, geen zwart-wit.
+    logo: "/images/logo.png",
+    // Eigen foto's. Kleur, geen zwart-wit.
     // heroPortrait 960x1280 (3:4) · senioriteit 1280x877 · verhaal 1920x1027 (16:9)
     heroPortrait: "/images/victor-hero.jpeg",
     senioriteit: "/images/victor-senioriteit.jpeg",
     verhaal: "/images/victor-verhaal.jpg",
     groep: "/images/victor-groep.jpg",
-    // Real verified photo of Victor Brands (from comedytrain.nl)
-    portraitOriginal:
-      "https://www.comedytrain.nl/wp-content/uploads/2018/06/victor_brands_0.jpg",
-    // Same photo, Higgsfield-enhanced (sharper/cleaner, face preserved exactly)
-    portraitEnhanced:
-      "https://d8j0ntlcm91z4.cloudfront.net/user_3EOJXXOi3zIKWUH2mnlkIeXI6wM/hf_20260605_113502_d1785f19-6964-465e-9c96-22d3f0a214eb.png",
-    heroBackground:
-      "https://d8j0ntlcm91z4.cloudfront.net/user_3EOJXXOi3zIKWUH2mnlkIeXI6wM/hf_20260605_111936_fad43455-659c-4a10-ad73-5251ebcbcdc4.png",
-    // Higgsfield-enhanced (sharper/higher-res, content unchanged) of the
-    // original victorbrands.nl/.../aanbod_r4_c5.png
-    trainingsacteur:
-      "https://d8j0ntlcm91z4.cloudfront.net/user_3EOJXXOi3zIKWUH2mnlkIeXI6wM/hf_20260605_125845_5c3213f7-a904-4620-a5ac-c389068c6987.png",
-    insightsDiscovery:
-      "https://www.victorbrands.nl/wp-content/uploads/2018/01/insight-discovery.jpg",
-    hbdiCertified:
-      "https://www.victorbrands.nl/wp-content/uploads/2018/01/HBDICertifiedLogo.jpg",
-    discBadge:
-      "https://www.victorbrands.nl/wp-content/uploads/2022/02/Badge_DISC.jpeg",
+    heroBackground: "/images/hero-bg.jpg",
+    trainingsacteur: "/images/trainingsacteur.jpg",
+    // Certificeringslogo's — gerenderd in methods.tsx via `cert.imageKey`.
+    insightsDiscovery: "/images/cert-insights-discovery.jpg",
+    hbdiCertified: "/images/cert-hbdi.jpg",
+    discBadge: "/images/cert-disc.jpg",
   },
 
   nav: {
@@ -76,8 +65,7 @@ export const siteContent = {
       { number: "9", label: "Trainingsprogramma's" },
     ],
     portraitUrl: "/images/victor-hero.jpeg",
-    backgroundUrl:
-      "https://d8j0ntlcm91z4.cloudfront.net/user_3EOJXXOi3zIKWUH2mnlkIeXI6wM/hf_20260605_111936_fad43455-659c-4a10-ad73-5251ebcbcdc4.png",
+    backgroundUrl: "/images/hero-bg.jpg",
   },
 
   // Thin trust strip — echte opdrachtgevers, terug te zien in de referenties.
@@ -404,11 +392,13 @@ export const siteContent = {
       ],
     },
     certificationsLabel: "Officieel gecertificeerd",
+    // `as const` houdt imageKey een letterlijke sleutel van `images`, zodat een
+    // ontbrekende of verkeerd gespelde afbeelding een buildfout geeft.
     certifications: [
       { name: "Insights Discovery", imageKey: "insightsDiscovery" },
       { name: "HBDI® Certified", imageKey: "hbdiCertified" },
       { name: "DISC", imageKey: "discBadge" },
-    ],
+    ] as const,
   },
 
   offerings: {
@@ -559,7 +549,7 @@ export const siteContent = {
         kort: "Victor is de eerste trainer die mij heeft weten te inspireren. Hij spreekt niet over goed of fout, maar leert je de spiegel te hanteren.",
         volledig: [
           "Victor is de eerste trainer die mij heeft weten te inspireren. Van nature ben ik vrij eigenwijs ingesteld en geloof ik niet in dat er vaste paden zijn om ergens te komen. De mens, de situatie, de aard van het gesprek en de toon van je eigen communicatie bepalen het \u201Csucces\u201D van een gesprek. Of dit nu om commercie gaat of bedrijfsvoering. In alle situaties is het raken van de juiste snaar bepalend in het overbrengen van de boodschap.",
-          "Victor spreekt niet over goed of fout, maar leert je de spiegel te hanteren. Een spiegel die niet alleen bedoeld is om te zien of je haar goed ziet of dat er een puist zich ontwikkelt. Een spiegel die je bewust maakt van je eigen gedrag.",
+          "Victor spreekt niet over goed of fout, maar leert je de spiegel te hanteren. Een spiegel die niet alleen bedoeld is om te zien of je haar goed zit of dat er een puist zich ontwikkelt. Een spiegel die je bewust maakt van je eigen gedrag.",
           "De trainingen van Victor staan bol van de interactie en alle aanwezigen komen aan bod. De veiligheid die hij hierbij creëert draagt zorg dat mensen zich kwetsbaar durven opstellen. Een basis om te komen tot een goed resultaat. Victor benadert de mensen met een variatie van humor en diepgaande filosofie. Het zorgt er voor dat mensen \u201Caan\u201D blijven staan en de training niet als langdradig ervaren wordt. Op het puntje van je stoel zou ik het willen noemen, zoals bij een spannende film.",
           "Victor neemt mensen mee in zijn visie op interactie door beeldvorming en eenvoudige oefeningen met foto's. Hij helpt de deelnemer hierdoor zijn neergelegde visie te begrijpen. Daarbij laat hij je kritisch kijken naar je eigen houding en gedrag, zonder een goed/fout oordeel neer te leggen. Maar wel te zeggen als je dit doet/zegt, kan het bij een ander zo overkomen.",
           "De dagen met Victor zijn van begin tot einde een boeiende samenvatting van leermomenten.",
@@ -586,9 +576,7 @@ export const siteContent = {
     requestCta: "Vraag het boek aan",
     requestInterestId: "boek",
     volkskrantNote:
-      "Zijn columns verschenen wekelijks in de Volkskrant onder het pseudoniem Jan de Graaf. De arrestatiegetuigenis is nog steeds beschikbaar via zijn website.",
-    backgroundUrl:
-      "https://d8j0ntlcm91z4.cloudfront.net/user_3EOJXXOi3zIKWUH2mnlkIeXI6wM/hf_20260605_105100_8b30a23e-7945-4e65-a88a-946570579765.png",
+      "Zijn columns verschenen wekelijks in de Volkskrant onder het pseudoniem Jan de Graaf.",
     podcasts: [
       {
         title: "Toomler: Voor de show",
@@ -610,13 +598,8 @@ export const siteContent = {
     intro:
       "Elke samenwerking begint met een goed gesprek. Of u nu trainer, trainingsacteur of coach zoekt — Victor neemt de tijd om uw situatie te begrijpen voordat hij een voorstel maakt.",
     email: "victor@victorbrands.nl",
-    // ↓ Telefoon en LinkedIn nog in te vullen. Laat leeg ("") om een nette
-    //   "in te vullen"-aanduiding te tonen; vul in zodra bekend.
-    phone: "", // bijv. "+31 6 12 34 56 78"
-    phoneLabel: "Telefoon",
-    linkedin: "", // bijv. "https://www.linkedin.com/in/victorbrands"
+    linkedin: "https://www.linkedin.com/in/victorbrands/",
     linkedinLabel: "LinkedIn",
-    placeholderNote: "In te vullen",
     location: "Haarlem, Nederland",
     locationLabel: "Standplaats",
     principles: ["Veiligheid", "Interactiviteit", "Humor"],

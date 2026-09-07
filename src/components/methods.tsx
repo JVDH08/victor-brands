@@ -8,8 +8,6 @@ import { Reveal, WordReveal, ease } from "@/components/motion-primitives";
 
 const { methods, images } = siteContent;
 
-type ImageKey = keyof typeof images;
-
 function QuadrantGrid({
   quadrants,
   title,
@@ -121,9 +119,10 @@ export function Methods() {
                 title={cert.name}
               >
                 <Image
-                  src={images[cert.imageKey as ImageKey]}
+                  src={images[cert.imageKey]}
                   alt={cert.name}
                   fill
+                  sizes="144px"
                   className="object-contain opacity-75 transition-opacity duration-300 hover:opacity-100"
                 />
               </motion.div>
