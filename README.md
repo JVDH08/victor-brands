@@ -1,3 +1,19 @@
+# Victor Brands
+
+## TODO bij de domeinverhuizing
+
+**`metadataBase` in `src/app/layout.tsx` staat tijdelijk op `https://victor-brands.vercel.app` en moet terug naar `https://victorbrands.nl` zodra dat domein naar Vercel wijst.**
+
+Zolang victorbrands.nl nog de oude WordPress-site serveert, zou het echte domein in `metadataBase` een `og:image` opleveren die 404't — dan toont LinkedIn geen previewafbeelding bij de gedeelde link.
+
+Hoort bij dezelfde omschakeling:
+
+- `src/app/sitemap.ts` en `src/app/robots.ts` noemen `https://victorbrands.nl` al expliciet; die kloppen pas na de verhuizing.
+- `legal.privacy` en `legal.cookies` in `src/content.ts` opnieuw nalopen voordat het domein live gaat.
+- `CONTACT_FROM_EMAIL` zetten zodra victorbrands.nl DNS-geverifieerd is in Resend.
+
+---
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
