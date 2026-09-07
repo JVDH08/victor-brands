@@ -46,7 +46,7 @@ export const metadata: Metadata = {
   // wijst. Staat tijdelijk op de vercel.app-URL omdat victorbrands.nl nu nog de
   // oude WordPress-site serveert: met het echte domein hier levert og:image een
   // 404 op en toont LinkedIn geen previewafbeelding bij de gedeelde link.
-  // Let op: sitemap.ts en robots.ts noemen victorbrands.nl nog wel expliciet.
+  // Dezelfde tijdelijke URL staat in sitemap.ts en robots.ts — zie README.md.
   metadataBase: new URL("https://victor-brands.vercel.app"),
   alternates: { canonical: "/" },
   openGraph: {
