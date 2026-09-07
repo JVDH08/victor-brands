@@ -1,10 +1,11 @@
 "use client";
 
+import Image from "next/image";
 import { siteContent } from "@/content";
 import { Reveal, WordReveal, StaggerGroup, StaggerItem } from "@/components/motion-primitives";
 import { motion } from "framer-motion";
 
-const { offerings } = siteContent;
+const { offerings, images } = siteContent;
 
 export function Offerings() {
   return (
@@ -28,30 +29,46 @@ export function Offerings() {
         </Reveal>
       </div>
 
-      <StaggerGroup className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {offerings.items.map((item) => (
-          <StaggerItem key={item.num}>
-            <motion.div
-              whileHover={{ y: -6 }}
-              className="card group h-full rounded-2xl p-7"
-            >
-              <span
-                className="mb-4 block text-xs font-bold tracking-[0.2em] text-[rgba(37,99,235,0.4)]"
-                style={{ fontFamily: "var(--font-playfair)" }}
+      <div className="grid gap-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,2fr)] lg:items-start lg:gap-14">
+        <Reveal>
+          {/* Bronbestand is 2082x2062 (1:1) — vierkant kader, zodat Victor noch
+              de tafel wordt bijgesneden. */}
+          <div className="relative aspect-square w-full overflow-hidden rounded-2xl shadow-[0_24px_60px_rgba(20,48,95,0.16)]">
+            <Image
+              src={images.groep}
+              alt="Victor Brands in gesprek met deelnemers tijdens een training"
+              fill
+              sizes="(min-width: 768px) 40vw, 90vw"
+              className="object-cover object-center"
+            />
+          </div>
+        </Reveal>
+
+        <StaggerGroup className="grid gap-5 sm:grid-cols-2">
+          {offerings.items.map((item) => (
+            <StaggerItem key={item.num}>
+              <motion.div
+                whileHover={{ y: -6 }}
+                className="card group h-full rounded-2xl p-7"
               >
-                {item.num}
-              </span>
-              <h3
-                className="mb-3 text-lg font-bold leading-snug text-[#14305f] transition-colors duration-300 group-hover:text-[#2563eb]"
-                style={{ fontFamily: "var(--font-playfair)" }}
-              >
-                {item.title}
-              </h3>
-              <p className="text-sm leading-relaxed text-[#5a6478]">{item.desc}</p>
-            </motion.div>
-          </StaggerItem>
-        ))}
-      </StaggerGroup>
+                <span
+                  className="mb-4 block text-xs font-bold tracking-[0.2em] text-[rgba(37,99,235,0.4)]"
+                  style={{ fontFamily: "var(--font-playfair)" }}
+                >
+                  {item.num}
+                </span>
+                <h3
+                  className="mb-3 text-lg font-bold leading-snug text-[#14305f] transition-colors duration-300 group-hover:text-[#2563eb]"
+                  style={{ fontFamily: "var(--font-playfair)" }}
+                >
+                  {item.title}
+                </h3>
+                <p className="text-sm leading-relaxed text-[#5a6478]">{item.desc}</p>
+              </motion.div>
+            </StaggerItem>
+          ))}
+        </StaggerGroup>
+      </div>
 
       <Reveal>
         <div className="mt-14 flex flex-col items-start gap-4 sm:flex-row sm:items-center">

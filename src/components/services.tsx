@@ -1,12 +1,53 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { useCallback, useRef, useState } from "react";
+import { motion, AnimatePresence, useInView } from "framer-motion";
 import Image from "next/image";
 import { siteContent } from "@/content";
 import { Reveal, WordReveal, ease } from "@/components/motion-primitives";
+import { Modal } from "@/components/modal";
 
-const { services, images } = siteContent;
+const { services, images, coachingDetails } = siteContent;
+
+type CoachingDetail = (typeof coachingDetails.items)[number];
+
+/* ─── Blokken uit `coachingDetails` ───────────────────────────────────────────
+   heading → tussenkop, list → opsomming, text → alinea. */
+function DetailBlocks({ blocks }: { blocks: CoachingDetail["blocks"] }) {
+  return (
+    <>
+      {blocks.map((block, i) => {
+        if (block.items) {
+          return (
+            <ul key={i} className="my-5 list-disc space-y-2 pl-5 marker:text-[#2563eb]">
+              {block.items.map((entry) => (
+                <li key={entry} className="text-[15px] leading-relaxed text-[#5a6478]">
+                  {entry}
+                </li>
+              ))}
+            </ul>
+          );
+        }
+        if (block.type === "heading") {
+          return (
+            <h4
+              key={i}
+              className="mt-8 mb-3 text-lg font-bold text-[#14305f] first:mt-0"
+              style={{ fontFamily: "var(--font-playfair)" }}
+            >
+              {block.body}
+            </h4>
+          );
+        }
+        return (
+          <p key={i} className="mb-5 text-[15px] leading-relaxed text-[#5a6478] last:mb-0">
+            {block.body}
+          </p>
+        );
+      })}
+    </>
+  );
+}
 
 const icons = [
   <svg key="trainer" viewBox="0 0 40 40" fill="none" className="h-9 w-9">
@@ -35,11 +76,13 @@ function ServiceCard({
   icon,
   image,
   delay,
+  actions,
 }: {
   item: typeof services.items[number];
   icon: React.ReactNode;
   image?: string;
   delay: number;
+  actions?: React.ReactNode;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-12% 0px -12% 0px" });
@@ -51,7 +94,7 @@ function ServiceCard({
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.85, ease, delay }}
       whileHover={{ y: -8 }}
-      className="card group flex flex-col overflow-hidden rounded-2xl"
+      className="card group flex h-full flex-col overflow-hidden rounded-2xl"
     >
       {image && (
         <div className="relative h-44 w-full overflow-hidden">
@@ -99,12 +142,50 @@ function ServiceCard({
             </span>
           ))}
         </div>
+
+        {actions}
       </div>
     </motion.div>
   );
 }
 
 export function Services() {
+  const [openDetailId, setOpenDetailId] = useState<string | null>(null);
+  // Per knop een ref, zodat de focus na sluiten terugkeert naar de juiste knop.
+  const triggerRefs = useRef<Record<string, HTMLButtonElement | null>>({});
+
+  const openDetail = openDetailId
+    ? coachingDetails.items.find((detail) => detail.id === openDetailId)
+    : null;
+
+  const closeDetail = useCallback(() => {
+    const id = openDetailId;
+    setOpenDetailId(null);
+    if (id) requestAnimationFrame(() => triggerRefs.current[id]?.focus());
+  }, [openDetailId]);
+
+  // Twee secundaire knoppen onder de kaart "Coach & teamcoach": naast elkaar
+  // zodra de kaart breed genoeg is, onder elkaar op mobiel — en ook weer onder
+  // elkaar op md, waar de kaart maar een derde van de sectie breed is.
+  const coachingActions = (
+    <div className="mt-6 flex flex-col gap-2 border-t border-[rgba(20,48,95,0.08)] pt-6 sm:flex-row md:flex-col lg:flex-row">
+      {coachingDetails.items.map((detail) => (
+        <button
+          key={detail.id}
+          ref={(el) => {
+            triggerRefs.current[detail.id] = el;
+          }}
+          type="button"
+          onClick={() => setOpenDetailId(detail.id)}
+          aria-haspopup="dialog"
+          className="flex-1 rounded-full border border-[rgba(37,99,235,0.3)] px-4 py-2.5 text-center text-[11px] font-semibold leading-snug text-[#2563eb] transition-all duration-300 hover:border-[#2563eb] hover:bg-[#eff4ff]"
+        >
+          {detail.buttonLabel}
+        </button>
+      ))}
+    </div>
+  );
+
   return (
     <section id="diensten" className="relative bg-[#f6f8fc] px-8 py-28 md:px-[8vw] md:py-36">
       <div className="mb-16 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
@@ -125,7 +206,7 @@ export function Services() {
           <p className="max-w-sm text-sm leading-relaxed text-[#5a6478] md:text-right">{services.intro}</p>
         </Reveal>
       </div>
-      <div className="grid gap-6 md:grid-cols-3">
+      <div className="grid items-stretch gap-6 md:grid-cols-3">
         {services.items.map((item, i) => (
           <ServiceCard
             key={item.title}
@@ -133,6 +214,7 @@ export function Services() {
             icon={icons[i]}
             image={i === 1 ? images.trainingsacteur : undefined}
             delay={i * 0.12}
+            actions={i === 2 ? coachingActions : undefined}
           />
         ))}
       </div>
@@ -148,6 +230,31 @@ export function Services() {
           </button>
         </div>
       </Reveal>
+
+      {/* ─── Modal met de verdiepende coachingtekst ──────────────────────── */}
+      <AnimatePresence>
+        {openDetail && (
+          <Modal
+            titleId="coaching-titel"
+            closeLabel={coachingDetails.closeLabel}
+            onClose={closeDetail}
+            header={
+              <>
+                <p className="label mb-2">{openDetail.subtitle}</p>
+                <h3
+                  id="coaching-titel"
+                  className="text-2xl font-bold text-[#14305f]"
+                  style={{ fontFamily: "var(--font-playfair)" }}
+                >
+                  {openDetail.title}
+                </h3>
+              </>
+            }
+          >
+            <DetailBlocks blocks={openDetail.blocks} />
+          </Modal>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

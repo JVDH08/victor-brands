@@ -12,7 +12,9 @@ export function Clients() {
       <Reveal>
         <div className="flex flex-col items-center gap-8 lg:flex-row lg:gap-12">
           <p className="label shrink-0 text-center lg:text-left">{clients.label}</p>
-          <div className="flex flex-1 flex-wrap items-center justify-center gap-x-10 gap-y-5 lg:justify-between lg:gap-x-6">
+          {/* 11 namen: gecentreerd laten teruglopen leest rustiger dan
+              justify-between, dat de laatste regel uit elkaar trekt. */}
+          <div className="flex flex-1 flex-wrap items-center justify-center gap-x-8 gap-y-4 lg:gap-x-10">
             {clients.items.map((client) =>
               client.logo ? (
                 <div key={client.name} className="relative h-8 w-28 opacity-70 transition-opacity duration-300 hover:opacity-100">

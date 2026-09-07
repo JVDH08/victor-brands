@@ -20,6 +20,7 @@ export const siteContent = {
     heroPortrait: "/images/victor-hero.jpeg",
     senioriteit: "/images/victor-senioriteit.jpeg",
     verhaal: "/images/victor-verhaal.jpg",
+    groep: "/images/victor-groep.jpg",
     // Real verified photo of Victor Brands (from comedytrain.nl)
     portraitOriginal:
       "https://www.comedytrain.nl/wp-content/uploads/2018/06/victor_brands_0.jpg",
@@ -89,10 +90,15 @@ export const siteContent = {
     items: [
       { name: "Heineken", logo: "" },
       { name: "Rijkswaterstaat", logo: "" },
-      { name: "IFV · Brandweer", logo: "" },
+      { name: "NIPV · Brandweer", logo: "" },
       { name: "Pepperminds", logo: "" },
       { name: "Falke & Verbaan", logo: "" },
       { name: "the Art of Learning", logo: "" },
+      { name: "Rabobank", logo: "" },
+      { name: "Ministerie van BZK", logo: "" },
+      { name: "Kenbri", logo: "" },
+      { name: "Ymere", logo: "" },
+      { name: "Sligro", logo: "" },
     ],
   },
 
@@ -129,7 +135,7 @@ export const siteContent = {
       {
         period: "20+ jaar",
         role: "Trainer & coach voor overheid en corporate",
-        org: "o.a. Heineken, Rijkswaterstaat, IFV (Brandweer), Pepperminds",
+        org: "o.a. Heineken, Rijkswaterstaat, NIPV (Brandweer), Pepperminds",
       },
       {
         period: "Acteur",
@@ -181,14 +187,14 @@ export const siteContent = {
         number: "03",
         tag: "Misstap",
         title: "Drie jaar in een Amerikaanse federale gevangenis",
-        body: "In 2001 werd Victor in Miami gearresteerd voor het witwassen van geld en veroordeeld tot drie jaar hechtenis in een Amerikaans federaal penitentiaire inrichting. Vanuit de gevangenis schreef hij wekelijks columns voor de Volkskrant onder het pseudoniem Jan de Graaf — eerlijk, rauw en met zwarte humor. Die columns werden het boek 'Vast in de VS'. Zijn gevangenisjaren zijn niet iets wat hij verbergt. Ze zijn de kern van zijn geloofwaardigheid.",
+        body: "In 2001 werd Victor in Miami gearresteerd voor een poging om geld wit te wassen en veroordeeld tot drie jaar hechtenis in een Amerikaans federaal penitentiaire inrichting. Vanuit de gevangenis schreef hij wekelijks columns voor de Volkskrant onder het pseudoniem Jan de Graaf — eerlijk, rauw en met zwarte humor. Die columns werden het boek 'Vast in de VS'. Zijn gevangenisjaren zijn niet iets wat hij verbergt. Ze zijn de kern van zijn geloofwaardigheid.",
         accent: true,
       },
       {
         number: "04",
         tag: "Heden",
         title: "Terug, en beter dan ooit",
-        body: "Na zijn vrijlating in 2004 keerde Victor terug in de samenleving en bouwde iets bijzonders op. Hij combineerde zijn acteerervaring, zijn mensenkennis en zijn ongewone levensverhaal tot een unieke trainerspraktijk. Vandaag werkt hij voor organisaties als Heineken, Rijkswaterstaat, de brandweer (IFV) en Pepperminds. Zijn verhaal maakt hem niet kwetsbaar — het maakt hem onstopbaar.",
+        body: "Na zijn vrijlating in 2004 keerde Victor terug in de samenleving en bouwde iets bijzonders op. Hij combineerde zijn acteerervaring, zijn mensenkennis en zijn ongewone levensverhaal tot een unieke trainerspraktijk. Vandaag werkt hij voor organisaties als Heineken, Rijkswaterstaat, de brandweer (NIPV) en Pepperminds. Zijn verhaal maakt hem niet kwetsbaar — het maakt hem onstopbaar.",
         accent: false,
       },
     ],
@@ -236,6 +242,136 @@ export const siteContent = {
     resultLabel: "Resultaat",
     ctaIntro: "Benieuwd wat dit voor uw team of organisatie kan betekenen?",
     cta: "Kennismakingsgesprek aanvragen",
+  },
+
+  // Verdiepende teksten achter de twee knoppen op de kaart "Coach & teamcoach".
+  // Bron: victorbrands.nl/teamcoach/ en victorbrands.nl/victor-als-coach/,
+  // omgezet naar de derde persoon zodat het aansluit op de rest van de site.
+  coachingDetails: {
+    closeLabel: "Sluiten",
+    items: [
+      {
+        id: "teamcoaching",
+        buttonLabel: "Lees hier meer over teamcoaching",
+        title: "Teamcoaching",
+        subtitle: "Teamtraining & samenwerkingscoaching",
+        blocks: [
+          {
+            type: "text",
+            body: "Sterke samenwerking ontstaat niet vanzelf. In complexe projecten, zeker binnen multidisciplinaire omgevingen, zijn vertrouwen, heldere communicatie en rolbewustzijn essentieel. Naast zijn rol als trainer en coach wordt Victor ook ingezet als teamcoach die (project)teams actief begeleidt in het versterken van hun samenwerking, onderlinge afstemming en gezamenlijke effectiviteit.",
+          },
+          { type: "heading", body: "Meer inzicht in gedrag en samenwerking" },
+          {
+            type: "text",
+            body: "Als teamcoach helpt Victor teams om diepgaand bewustzijn te ontwikkelen over gedragsstijlen, communicatievoorkeuren en onderlinge interactie. Daar waar nodig zet hij als ervaren Insights Discovery- en DISC-practitioner deze methodieken in om o.a. een gemeenschappelijke taal te introduceren en individueel en/of teambewustzijn te verhogen. Door inzicht te geven in hoe teamleden denken, communiceren en reageren onder druk, ontstaat meer begrip, minder frictie en een effectievere samenwerking.",
+          },
+          { type: "text", body: "Teams leren onder andere:" },
+          {
+            type: "list",
+            items: [
+              "Elkaars gedragsstijlen herkennen en beter benutten",
+              "Effectiever communiceren met verschillende persoonlijkheden",
+              "Inzicht krijgen in eigen gedrag en impact op het team",
+              "Bewuster omgaan met spanningen en verschillen in werkstijl",
+            ],
+          },
+          {
+            type: "text",
+            body: "Dit vergroot zowel het individuele zelfinzicht als het gezamenlijke bewustzijn, wat de basis vormt voor sterkere en duurzamere samenwerking.",
+          },
+          { type: "heading", body: "Een veilige en open leeromgeving" },
+          {
+            type: "text",
+            body: "Een essentieel onderdeel van zijn aanpak is het creëren van een veilige omgeving waarin teamleden zich vrij voelen om zich uit te spreken, feedback te geven en lastige onderwerpen bespreekbaar te maken. Juist in projecten waar belangen groot zijn en druk hoog is, zorgt deze veiligheid ervoor dat echte gesprekken kunnen plaatsvinden en vertrouwen daadwerkelijk groeit.",
+          },
+          {
+            type: "text",
+            body: "Victor werkt verbindend, onafhankelijk en met respect voor verschillende perspectieven, waardoor teams sneller openheid tonen en constructief met spanningen of conflicten leren omgaan.",
+          },
+          { type: "heading", body: "Praktisch, pragmatisch en direct toepasbaar" },
+          {
+            type: "text",
+            body: "Zijn werkwijze is pragmatisch en altijd praktijkgericht. Weinig theoretische modellen zonder context, maar interventies die direct aansluiten op de dagelijkse praktijk van het projectteam. Sessies zijn concreet, interactief en gericht op direct toepasbaar gedrag in overleggen, samenwerking en besluitvorming.",
+          },
+          { type: "text", body: "Dit vertaalt zich onder andere in:" },
+          {
+            type: "list",
+            items: [
+              "Praktische teamsessies (zoals PSU en PFU)",
+              "Insights Discovery- of DISC-teamsessies en gerichte reflectiemomenten",
+              "Begeleide dialogen bij spanningen of samenwerkingsvraagstukken",
+              "Concrete interventies die direct effect hebben op de samenwerking",
+            ],
+          },
+          { type: "heading", body: "Wat hij als teamtrainer brengt" },
+          {
+            type: "text",
+            body: "Als samenwerkings- en teamtrainer begeleidt Victor zowel opdrachtgevers- als opdrachtnemersteams bij het versterken van samenwerking binnen teams. Zijn aanpak richt zich op:",
+          },
+          {
+            type: "list",
+            items: [
+              "Het vergroten van vertrouwen en transparantie",
+              "Het verbeteren van communicatie en onderlinge afstemming",
+              "Het creëren van bewustzijn rondom teamdynamiek, rollen en verantwoordelijkheden",
+              "Het begeleiden van overleggen, evaluaties en (conflict)gesprekken als neutrale facilitator",
+              "Het tijdig signaleren en bespreekbaar maken van knelpunten in de samenwerking",
+              "Het monitoren en evalueren van de kwaliteit van samenwerking en gericht bijsturen",
+            ],
+          },
+          { type: "heading", body: "Wanneer inzetten?" },
+          { type: "text", body: "Victor voegt met name waarde toe wanneer:" },
+          {
+            type: "list",
+            items: [
+              "Teams intensief moeten samenwerken onder contractuele druk",
+              "Er spanningen of communicatieproblemen spelen",
+              "Samenwerking tussen opdrachtgever en opdrachtnemer versterkt moet worden",
+              "Een team meer bewustzijn wil ontwikkelen over gedrag, communicatie en onderlinge samenwerking",
+              "Een veilige setting nodig is om open en eerlijk met elkaar in gesprek te gaan",
+              "Een team zich praktisch en doelgericht wil ontwikkelen naar een hoger niveau van samenwerking",
+            ],
+          },
+          {
+            type: "text",
+            body: "Resultaat: een veilig samenwerkingsklimaat, meer wederzijds begrip en een pragmatisch versterkt team dat effectiever samenwerkt en beter stuurt op gezamenlijke projectdoelen.",
+          },
+        ],
+      },
+      {
+        id: "coaching",
+        buttonLabel: "Lees hier meer over 1-op-1 coaching",
+        title: "Victor als coach",
+        subtitle: "Individuele coaching",
+        blocks: [
+          {
+            type: "text",
+            body: "Klinkt dit herkenbaar? Het voelt alsof je stilstaat. Misschien gaat je carrière zo hard, dat het moeilijk bij te houden is. Je hebt behoefte aan iemand waarop je kunt bouwen. Die nuchter luistert.",
+          },
+          {
+            type: "text",
+            body: "Iemand die objectief is, waarmee je kunt sparren, en die niet bang is je ongezouten feedback te geven. Iemand die naast vragen stelt, ook advies en richting kan geven. Advies waar je in je dagelijkse praktijk meteen iets mee kunt.",
+          },
+          {
+            type: "text",
+            body: "Victor werkt niet met een strategie, stappenplan of vanuit een methodiek. Maar gewoon van mens tot mens. Hij spiegelt wat hij ziet, luistert scherp naar je woorden en geeft je terug wat hij voelt. Het resultaat? Je krijgt meer inzicht in jezelf en daarmee meer inzicht in anderen. Je kunt helderder benoemen wat er in je omgaat, en kunt daardoor meer toevoegen aan je gezin, collega's en/of werknemers.",
+          },
+          {
+            type: "text",
+            body: "Dat gebeurt in heldere taal, geen gezweef. Wat trouwens niet wil zeggen dat het niet over gevoel gaat. Je groeit. Als mens — en dus als professional. Niet door een of ander trucje toe te passen, maar door daadkrachtiger te kunnen gaan staan voor wie je bent, wat je voelt en waar je heen wilt.",
+          },
+          { type: "heading", body: "Wat coaching niet is" },
+          {
+            type: "text",
+            body: "Coaching is géén therapie. Coaching gaat niet om het repareren of helen van mensen. Sterker nog: de meeste mensen die een coach inschakelen zijn al erg succesvol. Alleen realiseren ze zich in hun succes dat ze nog succesvoller kunnen zijn als ze een aantal aanpassingen maken in hun leven. Een coach helpt je om dat te bereiken.",
+          },
+          {
+            type: "text",
+            body: "Neem vrijblijvend contact op voor een gratis intakegesprek.",
+          },
+        ],
+      },
+    ],
   },
 
   methods: {
@@ -407,11 +543,26 @@ export const siteContent = {
         id: "wendy-van-middelkoop",
         naam: "Wendy van Middelkoop",
         functie: "Decaan Leiderschap en organisatie",
-        organisatie: "IFV",
+        organisatie: "NIPV",
         categorie: "trainingsacteur",
         kort: "Zijn kracht ligt in het snel inschatten van de deelnemers waardoor hij zich kan aanpassen aan de doelgroep. Deelnemers worden door de inzet van Victor gemotiveerd, betrokken, enthousiast en gefocust.",
         volledig: [
           "Victor zet zich nu ruim 4 jaar in op het gebied van leiderschapsleergangen en -trainingen voor brandweerofficieren. We zetten hem daarbij graag in, voor diverse doelgroepen. Zijn kracht ligt in het snel inschatten van de deelnemers waardoor hij zich kan aanpassen aan de doelgroep. Zowel bij individuele voorgesprekken als plenaire trainingssessies is dit het geval. Met grote betrokkenheid en humor stelt hij de deelnemers in staat om, in een veilige omgeving, nieuw gedrag en gesprekstechnieken toe te passen en aan te leren. Hij is direct waar kan met oog voor iedere individuele deelnemer. Hij zoekt grenzen op, zonder eroverheen te gaan. Deelnemers worden door de inzet van Victor gemotiveerd, betrokken, enthousiast en gefocust. Met ons als organisatie denkt hij mee, waarbij het belang van de deelnemers voorop staat.",
+        ],
+      },
+      {
+        id: "danny-de-lee",
+        naam: "Danny de Lee",
+        functie: "Directeur",
+        organisatie: "Kinderopvang ZON!",
+        categorie: "trainer",
+        kort: "Victor is de eerste trainer die mij heeft weten te inspireren. Hij spreekt niet over goed of fout, maar leert je de spiegel te hanteren.",
+        volledig: [
+          "Victor is de eerste trainer die mij heeft weten te inspireren. Van nature ben ik vrij eigenwijs ingesteld en geloof ik niet in dat er vaste paden zijn om ergens te komen. De mens, de situatie, de aard van het gesprek en de toon van je eigen communicatie bepalen het \u201Csucces\u201D van een gesprek. Of dit nu om commercie gaat of bedrijfsvoering. In alle situaties is het raken van de juiste snaar bepalend in het overbrengen van de boodschap.",
+          "Victor spreekt niet over goed of fout, maar leert je de spiegel te hanteren. Een spiegel die niet alleen bedoeld is om te zien of je haar goed ziet of dat er een puist zich ontwikkelt. Een spiegel die je bewust maakt van je eigen gedrag.",
+          "De trainingen van Victor staan bol van de interactie en alle aanwezigen komen aan bod. De veiligheid die hij hierbij creëert draagt zorg dat mensen zich kwetsbaar durven opstellen. Een basis om te komen tot een goed resultaat. Victor benadert de mensen met een variatie van humor en diepgaande filosofie. Het zorgt er voor dat mensen \u201Caan\u201D blijven staan en de training niet als langdradig ervaren wordt. Op het puntje van je stoel zou ik het willen noemen, zoals bij een spannende film.",
+          "Victor neemt mensen mee in zijn visie op interactie door beeldvorming en eenvoudige oefeningen met foto's. Hij helpt de deelnemer hierdoor zijn neergelegde visie te begrijpen. Daarbij laat hij je kritisch kijken naar je eigen houding en gedrag, zonder een goed/fout oordeel neer te leggen. Maar wel te zeggen als je dit doet/zegt, kan het bij een ander zo overkomen.",
+          "De dagen met Victor zijn van begin tot einde een boeiende samenvatting van leermomenten.",
         ],
       },
     ],
@@ -424,14 +575,14 @@ export const siteContent = {
     pullQuote:
       "Een ijzingwekkend, minutieus portret van een omgeving die een mens genadeloos op zichzelf terugwerpt.",
     body1:
-      "In 2001 werd Victor Brands in Miami gearresteerd voor het witwassen van geld en veroordeeld tot drie jaar hechtenis in Amerikaanse federale gevangenissen. Vanuit zijn cel schreef hij wekelijks verslagen voor de Volkskrant onder het pseudoniem Jan de Graaf — eerlijk, rauw en met onnavolgbare zwarte humor.",
+      "In 2001 werd Victor Brands in Miami gearresteerd voor een poging om geld wit te wassen en veroordeeld tot drie jaar hechtenis in Amerikaanse federale gevangenissen. Vanuit zijn cel schreef hij wekelijks verslagen voor de Volkskrant onder het pseudoniem Jan de Graaf — eerlijk, rauw en met onnavolgbare zwarte humor.",
     body2:
       "Die columns werden het boek Vast in de VS. Het verscheen in 2005 en is tot op de dag van vandaag de meest indringende beschrijving van wat er met een mens gebeurt als hij alles verliest — en hoe hij zichzelf terugvindt.",
     orderEmail: "victor@victorbrands.nl",
     // CTA onder de boektekst. De knop scrollt naar het contactformulier en
     // vinkt daar de interesse-optie met dit id automatisch aan
     // (zie contact.interests.options).
-    requestLine: "Interesse in het boek? Victor heeft nog exemplaren liggen.",
+    requestLine: "Interesse in het boek? Neem gerust even contact op.",
     requestCta: "Vraag het boek aan",
     requestInterestId: "boek",
     volkskrantNote:

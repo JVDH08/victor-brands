@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { siteContent } from "@/content";
 import { Reveal, WordReveal, ease } from "@/components/motion-primitives";
+import { Modal } from "@/components/modal";
 
 const { testimonials } = siteContent;
 const categoryLabels: Record<string, string> = testimonials.categoryLabels;
@@ -58,8 +59,6 @@ export function Testimonials() {
 
   const reduceMotion = useReducedMotion();
   const cardRef = useRef<HTMLButtonElement>(null);
-  const dialogRef = useRef<HTMLDivElement>(null);
-  const closeRef = useRef<HTMLButtonElement>(null);
 
   const items = testimonials.items;
   const quote = items[current];
@@ -92,69 +91,6 @@ export function Testimonials() {
     setOpenId(null);
     requestAnimationFrame(() => cardRef.current?.focus());
   }, []);
-
-  /* ─── Escape + focus trap ──────────────────────────────────────────────── */
-  useEffect(() => {
-    if (!openId) return;
-
-    closeRef.current?.focus();
-
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        e.preventDefault();
-        closeModal();
-        return;
-      }
-      if (e.key !== "Tab") return;
-
-      const node = dialogRef.current;
-      if (!node) return;
-      const focusables = Array.from(
-        node.querySelectorAll<HTMLElement>(
-          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
-        ),
-      ).filter((el) => !el.hasAttribute("disabled"));
-      if (!focusables.length) return;
-
-      const first = focusables[0];
-      const last = focusables[focusables.length - 1];
-      if (e.shiftKey && document.activeElement === first) {
-        e.preventDefault();
-        last.focus();
-      } else if (!e.shiftKey && document.activeElement === last) {
-        e.preventDefault();
-        first.focus();
-      }
-    };
-
-    document.addEventListener("keydown", onKeyDown);
-    return () => document.removeEventListener("keydown", onKeyDown);
-  }, [openId, closeModal]);
-
-  /* ─── Body scroll lock ─────────────────────────────────────────────────────
-     overflow:hidden op <html> zet ook Lenis stil: die animeert scrollTop, en
-     met een maximale scrollpositie van 0 kan de pagina niet meer bewegen.
-     De modal-inhoud zelf krijgt data-lenis-prevent, zodat scrollen dáárin
-     gewoon werkt. */
-  useEffect(() => {
-    if (!openId) return;
-    const html = document.documentElement;
-    const body = document.body;
-    const scrollbar = window.innerWidth - html.clientWidth;
-    const prev = {
-      html: html.style.overflow,
-      body: body.style.overflow,
-      pad: body.style.paddingRight,
-    };
-    html.style.overflow = "hidden";
-    body.style.overflow = "hidden";
-    if (scrollbar > 0) body.style.paddingRight = `${scrollbar}px`;
-    return () => {
-      html.style.overflow = prev.html;
-      body.style.overflow = prev.body;
-      body.style.paddingRight = prev.pad;
-    };
-  }, [openId]);
 
   const roleLine = [quote.functie, quote.organisatie].filter(Boolean).join(" · ");
 
@@ -271,57 +207,28 @@ export function Testimonials() {
       {/* ─── Modal met de volledige referentie ───────────────────────────── */}
       <AnimatePresence>
         {openItem && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25, ease }}
-            className="fixed inset-0 z-[60] flex items-center justify-center bg-[rgba(20,48,95,0.45)] px-5 backdrop-blur-sm"
-            onClick={closeModal}
-          >
-            <motion.div
-              ref={dialogRef}
-              role="dialog"
-              aria-modal="true"
-              aria-labelledby="referentie-titel"
-              initial={{ opacity: 0, scale: reduceMotion ? 1 : 0.96, y: reduceMotion ? 0 : 12 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: reduceMotion ? 1 : 0.97, y: reduceMotion ? 0 : 8 }}
-              transition={{ duration: 0.35, ease }}
-              onClick={(e) => e.stopPropagation()}
-              className="relative flex max-h-[80vh] w-full max-w-2xl flex-col overflow-hidden rounded-2xl bg-white shadow-[0_40px_100px_rgba(20,48,95,0.35)]"
-            >
-              <div className="flex items-start justify-between gap-6 border-b border-[rgba(20,48,95,0.08)] px-8 py-6">
-                <div>
-                  <p className="label mb-2">{categoryLabels[openItem.categorie]}</p>
-                  <h3
-                    id="referentie-titel"
-                    className="text-2xl font-bold text-[#14305f]"
-                    style={{ fontFamily: "var(--font-playfair)" }}
-                  >
-                    {openItem.naam}
-                  </h3>
-                  <p className="mt-1 text-sm text-[#5a6478]">
-                    {[openItem.functie, openItem.organisatie].filter(Boolean).join(" · ")}
-                  </p>
-                </div>
-                <button
-                  ref={closeRef}
-                  onClick={closeModal}
-                  aria-label={testimonials.closeLabel}
-                  className="mt-1 flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border border-[rgba(20,48,95,0.1)] text-[#5a6478] transition-all hover:border-[#2563eb] hover:bg-[#eff4ff] hover:text-[#2563eb]"
+          <Modal
+            titleId="referentie-titel"
+            closeLabel={testimonials.closeLabel}
+            onClose={closeModal}
+            header={
+              <>
+                <p className="label mb-2">{categoryLabels[openItem.categorie]}</p>
+                <h3
+                  id="referentie-titel"
+                  className="text-2xl font-bold text-[#14305f]"
+                  style={{ fontFamily: "var(--font-playfair)" }}
                 >
-                  <svg viewBox="0 0 14 14" fill="none" className="h-3.5 w-3.5">
-                    <path d="M1 1l12 12M13 1L1 13" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-                  </svg>
-                </button>
-              </div>
-
-              <div data-lenis-prevent className="overflow-y-auto px-8 py-7">
-                <Paragraphs blocks={openItem.volledig} />
-              </div>
-            </motion.div>
-          </motion.div>
+                  {openItem.naam}
+                </h3>
+                <p className="mt-1 text-sm text-[#5a6478]">
+                  {[openItem.functie, openItem.organisatie].filter(Boolean).join(" · ")}
+                </p>
+              </>
+            }
+          >
+            <Paragraphs blocks={openItem.volledig} />
+          </Modal>
         )}
       </AnimatePresence>
     </section>
