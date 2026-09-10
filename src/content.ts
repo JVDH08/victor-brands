@@ -120,7 +120,7 @@ export const siteContent = {
       {
         period: "20+ jaar",
         role: "Trainer & coach voor overheid en corporate",
-        org: "o.a. Heineken, Rijkswaterstaat, NIPV (Brandweer), Pepperminds",
+        org: "o.a. Heineken, Rijkswaterstaat, NIPV (Brandweer)",
       },
       {
         period: "Acteur",
@@ -179,7 +179,7 @@ export const siteContent = {
         number: "04",
         tag: "Heden",
         title: "Terug, en beter dan ooit",
-        body: "Na zijn vrijlating in 2004 keerde Victor terug in de samenleving en bouwde iets bijzonders op. Hij combineerde zijn acteerervaring, zijn mensenkennis en zijn ongewone levensverhaal tot een unieke trainerspraktijk. Vandaag werkt hij voor organisaties als Heineken, Rijkswaterstaat, de brandweer (NIPV) en Pepperminds. Zijn verhaal maakt hem niet kwetsbaar — het maakt hem onstopbaar.",
+        body: "Na zijn vrijlating in 2004 keerde Victor terug in de samenleving en bouwde iets bijzonders op. Hij combineerde zijn acteerervaring, zijn mensenkennis en zijn ongewone levensverhaal tot een unieke trainerspraktijk. Vandaag werkt hij voor organisaties als Heineken, Rijkswaterstaat en de brandweer (NIPV). Zijn verhaal maakt hem niet kwetsbaar — het maakt hem onstopbaar.",
         accent: false,
       },
     ],
