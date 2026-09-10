@@ -12,9 +12,12 @@ export function Clients() {
       <Reveal>
         <div className="flex flex-col items-center gap-8 lg:flex-row lg:gap-12">
           <p className="label shrink-0 text-center lg:text-left">{clients.label}</p>
-          {/* 11 namen: gecentreerd laten teruglopen leest rustiger dan
-              justify-between, dat de laatste regel uit elkaar trekt. */}
-          <div className="flex flex-1 flex-wrap items-center justify-center gap-x-8 gap-y-4 lg:gap-x-10">
+          {/* 8 namen op één regel vanaf 1280px. gap-x-6 (24px) geldt bewust op
+              élke breedte: met lg:gap-x-8 komt de strip op 1280px 10px tekort
+              en valt Sligro terug. Loopt hij op smallere schermen alsnog
+              terug, dan gecentreerd — justify-between trekt de laatste regel
+              uit elkaar. */}
+          <div className="flex flex-1 flex-wrap items-center justify-center gap-x-6 gap-y-4">
             {clients.items.map((client) =>
               client.logo ? (
                 <div key={client.name} className="relative h-8 w-28 opacity-70 transition-opacity duration-300 hover:opacity-100">
@@ -23,7 +26,7 @@ export function Clients() {
               ) : (
                 <span
                   key={client.name}
-                  className="text-base font-semibold tracking-tight text-[#9aa3b5] transition-colors duration-300 hover:text-[#14305f] md:text-lg"
+                  className="text-sm font-semibold tracking-tight text-[#9aa3b5] transition-colors duration-300 hover:text-[#14305f] md:text-base"
                   style={{ fontFamily: "var(--font-playfair)" }}
                 >
                   {client.name}
