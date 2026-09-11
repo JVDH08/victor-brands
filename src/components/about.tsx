@@ -4,20 +4,22 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Image from "next/image";
 import { siteContent } from "@/content";
-import { Reveal, WordReveal, Parallax, ease } from "@/components/motion-primitives";
+import { Reveal, WordReveal, Parallax, ease, useNoMotion } from "@/components/motion-primitives";
 
 const { about, images } = siteContent;
 
 function Chapter({ chapter }: { chapter: typeof about.chapters[number] }) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-15% 0px -15% 0px" });
+  // Bij reduced motion meteen in de eindstand, net als Reveal.
+  const noMotion = useNoMotion();
 
   return (
     <motion.div
       ref={ref}
       initial={{ opacity: 0, y: 48 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.95, ease }}
+      animate={noMotion || isInView ? { opacity: 1, y: 0 } : {}}
+      transition={noMotion ? { duration: 0 } : { duration: 0.95, ease }}
       className={`relative pl-10 ${
         chapter.accent
           ? "py-12 px-10 rounded-2xl border border-[rgba(37,99,235,0.18)] bg-gradient-to-br from-[#eff4ff] to-white shadow-[0_20px_50px_rgba(20,48,95,0.08)]"
@@ -26,8 +28,8 @@ function Chapter({ chapter }: { chapter: typeof about.chapters[number] }) {
     >
       <motion.div
         initial={{ scale: 0 }}
-        animate={isInView ? { scale: 1 } : {}}
-        transition={{ duration: 0.5, ease, delay: 0.2 }}
+        animate={noMotion || isInView ? { scale: 1 } : {}}
+        transition={noMotion ? { duration: 0 } : { duration: 0.5, ease, delay: 0.2 }}
         className={`absolute -left-[5px] top-9 h-3 w-3 rounded-full border-2 ${
           chapter.accent ? "border-[#2563eb] bg-[#2563eb]" : "border-[#2563eb] bg-white"
         }`}

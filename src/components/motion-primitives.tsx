@@ -1,15 +1,44 @@
 "use client";
 
-import { useRef, type ReactNode } from "react";
+import {
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
 import {
   motion,
   useInView,
+  useReducedMotion,
   useScroll,
   useTransform,
   type Variants,
 } from "framer-motion";
 
 export const ease: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
+/* Deze primitieven worden door de hele site gebruikt. Zet de bezoeker
+   "prefers-reduced-motion: reduce" aan, dan rendert elk van hen meteen in de
+   eindtoestand: geen verschuiving, geen fade, geen parallax. */
+
+const useIsoLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
+
+/* Waarom niet rechtstreeks op useReducedMotion afgaan: op de server is die
+   altijd null en op de client meteen de echte voorkeur. Renderen we daar direct
+   op, dan levert de server de animatiestand en de client de eindstand — een
+   hydratiemismatch, en React 19 gooit de hele subtree dan weg en bouwt hem
+   opnieuw op. Daarom schakelen we pas ná hydratie om, in een layout-effect
+   zodat het scherm de animatiestand nooit te zien krijgt.
+
+   Let op: framer's useReducedMotion leest de voorkeur één keer bij de eerste
+   render en abonneert zich er niet op, dus wisselen kost een herlaadbeurt. */
+export function useNoMotion() {
+  const reduceMotion = useReducedMotion();
+  const [hydrated, setHydrated] = useState(false);
+  useIsoLayoutEffect(() => setHydrated(true), []);
+  return hydrated && !!reduceMotion;
+}
 
 /* ─── Reveal: fade + slide up when scrolled into view ─────────────────────── */
 export function Reveal({
@@ -27,6 +56,9 @@ export function Reveal({
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once, margin: "-12% 0px -12% 0px" });
+  const noMotion = useNoMotion();
+
+  if (noMotion) return <div className={className}>{children}</div>;
 
   return (
     <motion.div
@@ -60,6 +92,10 @@ export function StaggerGroup({
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-10% 0px -10% 0px" });
+  const noMotion = useNoMotion();
+
+  if (noMotion) return <div className={className}>{children}</div>;
+
   return (
     <motion.div
       ref={ref}
@@ -80,6 +116,10 @@ export function StaggerItem({
   children: ReactNode;
   className?: string;
 }) {
+  const noMotion = useNoMotion();
+
+  if (noMotion) return <div className={className}>{children}</div>;
+
   return (
     <motion.div variants={itemV} className={className}>
       {children}
@@ -101,7 +141,30 @@ export function WordReveal({
 }) {
   const ref = useRef<HTMLHeadingElement>(null);
   const inView = useInView(ref, { once: true, margin: "-10% 0px -10% 0px" });
+  const noMotion = useNoMotion();
   const words = text.split(" ");
+
+  const isAccent = (i: number) => accentFrom !== undefined && i >= accentFrom;
+  const accentStyle = { color: "#2563eb", fontStyle: "italic" as const };
+
+  /* Zonder animatie is de overflow-mask overbodig — en daarmee ook de pb/-mb
+     die de descenders binnen die mask houdt. */
+  if (noMotion) {
+    return (
+      <h2 ref={ref} className={`${className ?? ""} max-w-full break-words`}>
+        {words.map((word, i) => (
+          <span
+            key={i}
+            className={isAccent(i) ? "pr-[0.12em]" : undefined}
+            style={isAccent(i) ? accentStyle : undefined}
+          >
+            {word}
+            {i < words.length - 1 ? " " : ""}
+          </span>
+        ))}
+      </h2>
+    );
+  }
 
   return (
     <h2 ref={ref} className={`${className ?? ""} max-w-full break-words`}>
@@ -113,7 +176,7 @@ export function WordReveal({
           // padding gives the descenders room inside the clip box; the equal
           // negative margin keeps line spacing identical to an unmasked heading.
           className={`inline-block max-w-full overflow-hidden align-bottom pb-[0.2em] -mb-[0.2em] ${
-            accentFrom !== undefined && i >= accentFrom ? "pr-[0.12em]" : ""
+            isAccent(i) ? "pr-[0.12em]" : ""
           }`}
         >
           <motion.span
@@ -122,14 +185,10 @@ export function WordReveal({
             initial={{ y: "135%" }}
             animate={inView ? { y: 0 } : {}}
             transition={{ duration: 0.8, ease, delay: delay + i * 0.08 }}
-            style={
-              accentFrom !== undefined && i >= accentFrom
-                ? { color: "#2563eb", fontStyle: "italic" }
-                : undefined
-            }
+            style={isAccent(i) ? accentStyle : undefined}
           >
             {word}
-            {i < words.length - 1 ? " " : ""}
+            {i < words.length - 1 ? " " : ""}
           </motion.span>
         </span>
       ))}
@@ -153,6 +212,17 @@ export function Parallax({
     offset: ["start end", "end start"],
   });
   const y = useTransform(scrollYProgress, [0, 1], [distance, -distance]);
+  const noMotion = useNoMotion();
+
+  // ref blijft ook hier hangen: useScroll klaagt anders dat zijn target wel
+  // bestaat maar niet gehydrateerd is.
+  if (noMotion) {
+    return (
+      <div ref={ref} className={className}>
+        <div className="h-full w-full">{children}</div>
+      </div>
+    );
+  }
 
   return (
     <div ref={ref} className={className}>

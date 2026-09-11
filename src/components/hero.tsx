@@ -4,6 +4,8 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import { siteContent } from "@/content";
+import { useNoMotion } from "@/components/motion-primitives";
+import { scrollToSection } from "@/components/smooth-scroll";
 
 const { hero } = siteContent;
 const ease: [number, number, number, number] = [0.16, 1, 0.3, 1];
@@ -20,6 +22,11 @@ export function Hero() {
   const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
   const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
 
+  // Deze vier hangen aan de scrollpositie, niet aan een animatie — framer laat
+  // ze bij reduced motion dus gewoon meebewegen. Daarom hier de styles zelf
+  // weglaten; de hero staat dan stil in zijn beginstand.
+  const noMotion = useNoMotion();
+
   return (
     // De taglineregel onder de header staat nu in de flow bóven de hero
     // (7rem hoog: 72px header-offset + pt-2 + regel + pb-4). Die trekken we
@@ -33,7 +40,7 @@ export function Hero() {
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_15%_30%,rgba(37,99,235,0.07),transparent)]" />
 
       {/* Higgsfield white/blue background, parallax */}
-      <motion.div style={{ y: bgY }} className="absolute inset-0">
+      <motion.div style={noMotion ? undefined : { y: bgY }} className="absolute inset-0">
         <Image
           src={hero.backgroundUrl}
           alt=""
@@ -48,7 +55,7 @@ export function Hero() {
           dit is alleen nog de ademruimte onder die regel. */}
       <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-10 px-8 pt-6 pb-16 md:grid-cols-[1.05fr_0.95fr] md:gap-14 md:px-[8vw] md:pt-0 md:pb-0">
         {/* Text */}
-        <motion.div style={{ y: textY, opacity }}>
+        <motion.div style={noMotion ? undefined : { y: textY, opacity }}>
           <h1
             className="mb-7 max-w-full break-words text-[clamp(3.5rem,8vw,7rem)] font-bold leading-[0.92] tracking-tight text-[#14305f]"
             style={{ fontFamily: "var(--font-playfair)" }}
@@ -91,7 +98,7 @@ export function Hero() {
             className="flex flex-wrap gap-4"
           >
             <button
-              onClick={() => document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })}
+              onClick={() => scrollToSection("#contact")}
               className="btn-blue"
             >
               {hero.ctaPrimary}
@@ -100,7 +107,7 @@ export function Hero() {
               </svg>
             </button>
             <button
-              onClick={() => document.querySelector("#diensten")?.scrollIntoView({ behavior: "smooth" })}
+              onClick={() => scrollToSection("#diensten")}
               className="btn-ghost"
             >
               {hero.ctaSecondary}
@@ -139,7 +146,7 @@ export function Hero() {
           <div className="absolute -left-4 -top-4 h-20 w-20 rounded-tl-3xl border-l-2 border-t-2 border-[#2563eb]/40 md:-left-6 md:-top-6" />
 
           <motion.div
-            style={{ y: portraitY }}
+            style={noMotion ? undefined : { y: portraitY }}
             className="relative z-10 overflow-hidden rounded-3xl shadow-[0_30px_80px_rgba(20,48,95,0.28)]"
           >
             {/* Bron is exact 3:4 (960x1280), dus object-cover snijdt niets weg. */}
@@ -185,8 +192,9 @@ export function Hero() {
         <p className="label">Scroll</p>
         <div className="h-12 w-px overflow-hidden bg-[rgba(37,99,235,0.2)]">
           <motion.div
-            animate={{ y: ["-100%", "200%"] }}
-            transition={{ repeat: Infinity, duration: 1.6, ease: "easeInOut" }}
+            // Doorlopende lus: framer stopt die niet uit zichzelf bij reduced motion.
+            animate={noMotion ? { y: "0%" } : { y: ["-100%", "200%"] }}
+            transition={noMotion ? { duration: 0 } : { repeat: Infinity, duration: 1.6, ease: "easeInOut" }}
             className="h-1/2 w-full bg-[#2563eb]"
           />
         </div>

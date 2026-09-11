@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import Image from "next/image";
 import { siteContent } from "@/content";
-import { Reveal, WordReveal, ease } from "@/components/motion-primitives";
+import { Reveal, WordReveal, ease, useNoMotion } from "@/components/motion-primitives";
 
 const { methods, images } = siteContent;
 
@@ -23,13 +23,15 @@ function QuadrantGrid({
   const [hovered, setHovered] = useState<string | null>(null);
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-12% 0px -12% 0px" });
+  // Bij reduced motion meteen in de eindstand, net als Reveal.
+  const noMotion = useNoMotion();
 
   return (
     <motion.div
       ref={ref}
       initial={{ opacity: 0, y: 44 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.9, ease }}
+      animate={noMotion || isInView ? { opacity: 1, y: 0 } : {}}
+      transition={noMotion ? { duration: 0 } : { duration: 0.9, ease }}
     >
       <p className="label mb-3">{subtitle}</p>
       <h3 className="mb-8 text-2xl font-bold text-[#14305f] md:text-3xl" style={{ fontFamily: "var(--font-playfair)" }}>

@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { siteContent } from "@/content";
-import { Reveal } from "@/components/motion-primitives";
+import { Reveal, useNoMotion } from "@/components/motion-primitives";
 
 const { book } = siteContent;
 
@@ -12,6 +12,9 @@ export function Book() {
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
   const glowY = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
   const titleX = useTransform(scrollYProgress, [0, 1], ["-3%", "3%"]);
+
+  // Scroll-gebonden, dus buiten framer's eigen reduced-motion-afhandeling om.
+  const noMotion = useNoMotion();
 
   return (
     <section
@@ -24,7 +27,7 @@ export function Book() {
 
       {/* Parallax blue glow */}
       <motion.div
-        style={{ y: glowY }}
+        style={noMotion ? undefined : { y: glowY }}
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_55%_50%_at_80%_45%,rgba(59,130,246,0.22),transparent)]"
       />
 
@@ -38,7 +41,7 @@ export function Book() {
       <div className="relative z-10 max-w-5xl">
         <Reveal>
           <p className="label mb-5 text-[#7da7f0]">{book.sectionLabel}</p>
-          <motion.div style={{ x: titleX }}>
+          <motion.div style={noMotion ? undefined : { x: titleX }}>
             <h2 className="mb-2 text-[clamp(3rem,7vw,6rem)] font-bold leading-[1] tracking-tight text-white" style={{ fontFamily: "var(--font-playfair)" }}>
               {book.title}
             </h2>

@@ -4,8 +4,9 @@ import { useCallback, useRef, useState } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import Image from "next/image";
 import { siteContent } from "@/content";
-import { Reveal, WordReveal, ease } from "@/components/motion-primitives";
+import { Reveal, WordReveal, ease, useNoMotion } from "@/components/motion-primitives";
 import { Modal } from "@/components/modal";
+import { scrollToSection } from "@/components/smooth-scroll";
 
 const { services, images, coachingDetails } = siteContent;
 
@@ -86,13 +87,15 @@ function ServiceCard({
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-12% 0px -12% 0px" });
+  // Bij reduced motion meteen in de eindstand, net als Reveal.
+  const noMotion = useNoMotion();
 
   return (
     <motion.div
       ref={ref}
       initial={{ opacity: 0, y: 48 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.85, ease, delay }}
+      animate={noMotion || isInView ? { opacity: 1, y: 0 } : {}}
+      transition={noMotion ? { duration: 0 } : { duration: 0.85, ease, delay }}
       whileHover={{ y: -8 }}
       className="card group flex h-full flex-col overflow-hidden rounded-2xl"
     >
@@ -224,7 +227,7 @@ export function Services() {
         <div className="mt-14 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
           <p className="text-sm text-[#5a6478]">{services.ctaIntro}</p>
           <button
-            onClick={() => document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })}
+            onClick={() => scrollToSection("#contact")}
             className="btn-blue shrink-0"
           >
             {services.cta}

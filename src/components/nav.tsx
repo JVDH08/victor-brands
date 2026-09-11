@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { siteContent } from "@/content";
+import { scrollToSection } from "@/components/smooth-scroll";
 
 const { nav } = siteContent;
 
@@ -19,8 +20,7 @@ export function Nav() {
 
   function scrollTo(href: string) {
     setMenuOpen(false);
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+    scrollToSection(href);
   }
 
   return (

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { siteContent } from "@/content";
 import { Reveal, WordReveal, Parallax } from "@/components/motion-primitives";
+import { scrollToSection } from "@/components/smooth-scroll";
 
 const { profile, images } = siteContent;
 
@@ -104,7 +105,7 @@ export function Profile() {
 
           <Reveal>
             <button
-              onClick={() => document.querySelector("#verhaal")?.scrollIntoView({ behavior: "smooth" })}
+              onClick={() => scrollToSection("#verhaal")}
               className="btn-ghost self-start"
             >
               {profile.storyCta}

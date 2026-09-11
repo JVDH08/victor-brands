@@ -4,6 +4,7 @@ import Image from "next/image";
 import { siteContent } from "@/content";
 import { Reveal, WordReveal, StaggerGroup, StaggerItem } from "@/components/motion-primitives";
 import { motion } from "framer-motion";
+import { scrollToSection } from "@/components/smooth-scroll";
 
 const { offerings, images } = siteContent;
 
@@ -74,7 +75,7 @@ export function Offerings() {
         <div className="mt-14 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
           <p className="text-sm text-[#5a6478]">{offerings.ctaIntro}</p>
           <button
-            onClick={() => document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })}
+            onClick={() => scrollToSection("#contact")}
             className="btn-blue shrink-0"
           >
             {offerings.cta}
