@@ -33,9 +33,28 @@ const securityHeaders = [
   { key: "Strict-Transport-Security", value: "max-age=31536000; includeSubDomains" },
 ];
 
+// Oude WordPress-URL's van victorbrands.nl → de bijbehorende sectie op deze
+// one-pager. Doen pas iets zodra dat domein naar deze site wijst. Bewust niet
+// meegenomen: /voorbeeld-pagina/ (standaardpagina van WordPress, nergens
+// gelinkt) en de veertien lege posts onder /niet-gecategoriseerd/ — daar hoort
+// geen sectie bij, dus die krijgen gewoon de 404-pagina.
+const oldSiteRedirects = [
+  { source: "/wie-is-victor-brands", destination: "/#verhaal" },
+  { source: "/victor-als-coach", destination: "/#diensten" },
+  { source: "/teamcoach", destination: "/#diensten" },
+  { source: "/werkwijze", destination: "/#werkwijze" },
+  { source: "/aanbod-op-maat", destination: "/#aanbod" },
+  { source: "/referenties", destination: "/#referenties" },
+  { source: "/vast-in-de-vs", destination: "/#boek" },
+  { source: "/contact", destination: "/#contact" },
+];
+
 const nextConfig: NextConfig = {
   async headers() {
     return [{ source: "/(.*)", headers: securityHeaders }];
+  },
+  async redirects() {
+    return oldSiteRedirects.map((redirect) => ({ ...redirect, permanent: true }));
   },
 };
 
