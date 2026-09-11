@@ -573,16 +573,27 @@ export const siteContent = {
     requestInterestId: "boek",
     volkskrantNote:
       "Zijn columns verschenen wekelijks in de Volkskrant onder het pseudoniem Jan de Graaf.",
+    // `platform` bepaalt het icoon op de kaart ("spotify" of "podimo").
+    // `note` is optioneel en komt als extra regel onder de beschrijving.
     podcasts: [
       {
         title: "Toomler: Voor de show",
         desc: "Victor over zijn gevangenistijd en terugkeer naar het podium",
         href: "https://open.spotify.com/episode/2oW83CSG6Blt27kCViluJT",
+        platform: "spotify",
       },
       {
         title: "Podcast: Vast in de VS",
         desc: "De volledige serie over zijn drie jaar in de Amerikaanse gevangenis",
         href: "https://open.spotify.com/episode/6imdZ93pEEMpgf6T8hUSP6",
+        platform: "spotify",
+      },
+      {
+        title: "Podimo: Veroordeeld",
+        desc: "Lauren Fabels en Veerle Hammerstein spreken met Victor over het persoonlijke verhaal achter zijn veroordeling",
+        note: "Aflevering #25 · alleen te beluisteren met een Podimo-abonnement",
+        href: "https://podimo.com/nl/shows/veroordeeld-2/episode/16cec80d-8fd2-406b-8574-a423646acdaa",
+        platform: "podimo",
       },
     ],
   },
