@@ -650,6 +650,16 @@ export const siteContent = {
     ],
   },
 
+  // 404-pagina (src/app/not-found.tsx). Zelfde opbouw als de boeksectie: label,
+  // witte titel met blauwe cursieve tweede regel, korte tekst en één knop.
+  notFound: {
+    label: "Foutcode 404",
+    title: "Pagina",
+    titleAccent: "niet gevonden",
+    body: "Deze pagina bestaat niet, of niet meer. Misschien kwam u via een oude link — op de homepage vindt u alles over Victor, zijn trainingen en coaching.",
+    cta: "Terug naar de homepage",
+  },
+
   // ⚠️ CONCEPT — placeholderteksten. Laat de definitieve privacyverklaring en
   //    het cookiebeleid juridisch controleren voordat de site live gaat.
   legal: {
