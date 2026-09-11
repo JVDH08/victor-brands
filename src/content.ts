@@ -74,7 +74,6 @@ export const siteContent = {
   // `logo` leeg is, wordt de naam als nette tekst-wordmark getoond.
   clients: {
     label: "Vertrouwd door o.a.",
-    note: "Logo's in te vullen — namen zijn echte opdrachtgevers (zie referenties).",
     items: [
       { name: "Heineken", logo: "" },
       { name: "Rijkswaterstaat", logo: "" },
