@@ -148,6 +148,18 @@ export function WordReveal({
   const isAccent = (i: number) => accentFrom !== undefined && i >= accentFrom;
   const accentStyle = { color: "#2563eb", fontStyle: "italic" as const };
 
+  // pr + matching -mr, same trick as the pb/-mb below: the italic accent words
+  // lean past their advance width, so the overflow mask needs padding on the
+  // right or it clips the overhang. The equal negative margin keeps that room
+  // out of the layout, so the gap to the next word stays a plain space instead
+  // of a space plus 0.12em. The last word keeps its padding uncompensated:
+  // nothing follows it, and the negative margin would let the padding stick out
+  // of a heading that is only as wide as its content.
+  // The unmasked branch below has no overhang to protect, but carries the same
+  // pair so both branches wrap and space identically.
+  const accentSpacing = (i: number) =>
+    !isAccent(i) ? "" : i < words.length - 1 ? "pr-[0.12em] -mr-[0.12em]" : "pr-[0.12em]";
+
   /* Zonder animatie is de overflow-mask overbodig — en daarmee ook de pb/-mb
      die de descenders binnen die mask houdt. */
   if (noMotion) {
@@ -156,7 +168,7 @@ export function WordReveal({
         {words.map((word, i) => (
           <span
             key={i}
-            className={isAccent(i) ? "pr-[0.12em]" : undefined}
+            className={accentSpacing(i) || undefined}
             style={isAccent(i) ? accentStyle : undefined}
           >
             {word}
@@ -179,9 +191,9 @@ export function WordReveal({
             // reveal, but it clips Playfair's deep descenders (g, p, j, y). The
             // padding gives the descenders room inside the clip box; the equal
             // negative margin keeps line spacing identical to an unmasked heading.
-            className={`inline-block max-w-full overflow-hidden align-bottom pb-[0.2em] -mb-[0.2em] ${
-              isAccent(i) ? "pr-[0.12em]" : ""
-            }`}
+            className={`inline-block max-w-full overflow-hidden align-bottom pb-[0.2em] -mb-[0.2em] ${accentSpacing(
+              i,
+            )}`}
           >
             <motion.span
               className="inline-block break-words"
