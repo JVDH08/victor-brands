@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  Fragment,
   useEffect,
   useLayoutEffect,
   useRef,
@@ -166,31 +167,35 @@ export function WordReveal({
     );
   }
 
+  /* De scheidingsspatie staat bewust náást de mask-span, niet erin: een spatie
+     aan het eind van een inline-block wordt door de browser weggetrimd, en dan
+     plakken de woorden aan elkaar. */
   return (
     <h2 ref={ref} className={`${className ?? ""} max-w-full break-words`}>
       {words.map((word, i) => (
-        <span
-          key={i}
-          // pb + matching -mb: the overflow mask is needed for the slide-up
-          // reveal, but it clips Playfair's deep descenders (g, p, j, y). The
-          // padding gives the descenders room inside the clip box; the equal
-          // negative margin keeps line spacing identical to an unmasked heading.
-          className={`inline-block max-w-full overflow-hidden align-bottom pb-[0.2em] -mb-[0.2em] ${
-            isAccent(i) ? "pr-[0.12em]" : ""
-          }`}
-        >
-          <motion.span
-            className="inline-block break-words"
-            // 135% (not 110%) so the hidden state clears the taller padded mask
-            initial={{ y: "135%" }}
-            animate={inView ? { y: 0 } : {}}
-            transition={{ duration: 0.8, ease, delay: delay + i * 0.08 }}
-            style={isAccent(i) ? accentStyle : undefined}
+        <Fragment key={i}>
+          <span
+            // pb + matching -mb: the overflow mask is needed for the slide-up
+            // reveal, but it clips Playfair's deep descenders (g, p, j, y). The
+            // padding gives the descenders room inside the clip box; the equal
+            // negative margin keeps line spacing identical to an unmasked heading.
+            className={`inline-block max-w-full overflow-hidden align-bottom pb-[0.2em] -mb-[0.2em] ${
+              isAccent(i) ? "pr-[0.12em]" : ""
+            }`}
           >
-            {word}
-            {i < words.length - 1 ? " " : ""}
-          </motion.span>
-        </span>
+            <motion.span
+              className="inline-block break-words"
+              // 135% (not 110%) so the hidden state clears the taller padded mask
+              initial={{ y: "135%" }}
+              animate={inView ? { y: 0 } : {}}
+              transition={{ duration: 0.8, ease, delay: delay + i * 0.08 }}
+              style={isAccent(i) ? accentStyle : undefined}
+            >
+              {word}
+            </motion.span>
+          </span>
+          {i < words.length - 1 ? " " : ""}
+        </Fragment>
       ))}
     </h2>
   );
