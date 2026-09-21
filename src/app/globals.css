@@ -65,14 +65,17 @@ em, i {
 ::-webkit-scrollbar-thumb { background: rgba(37, 99, 235, 0.4); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: rgba(37, 99, 235, 0.6); }
 
-/* Section label */
-.label {
-  font-family: var(--font-inter), sans-serif;
-  font-size: 0.66rem;
-  font-weight: 600;
-  letter-spacing: 0.26em;
-  text-transform: uppercase;
-  color: #2563eb;
+/* Section label. In een layer, zodat utilities als text-[#7da7f0] er wel
+   overheen gaan; losse CSS wint in Tailwind v4 altijd van utilities. */
+@layer components {
+  .label {
+    font-family: var(--font-inter), sans-serif;
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: #2563eb;
+  }
 }
 
 /* Blue divider line */
