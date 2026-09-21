@@ -4,9 +4,9 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Image from "next/image";
 import { siteContent } from "@/content";
-import { Reveal, WordReveal, Parallax, ease, useNoMotion } from "@/components/motion-primitives";
+import { Reveal, WordReveal, ease, useNoMotion } from "@/components/motion-primitives";
 
-const { about, images } = siteContent;
+const { about } = siteContent;
 
 function Chapter({ chapter }: { chapter: typeof about.chapters[number] }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -50,6 +50,20 @@ function Chapter({ chapter }: { chapter: typeof about.chapters[number] }) {
         </h3>
       </div>
       <p className="max-w-2xl leading-relaxed text-[#5a6478]">{chapter.body}</p>
+      {chapter.image && (
+        <figure className="mt-8 max-w-2xl">
+          <div className="relative aspect-video overflow-hidden rounded-2xl shadow-[0_24px_60px_rgba(20,48,95,0.18)]">
+            <Image
+              src={chapter.image.src}
+              alt={chapter.image.alt}
+              fill
+              sizes="(min-width: 768px) 672px, calc(100vw - 104px)"
+              className="object-cover object-center"
+            />
+          </div>
+          <figcaption className="label mt-4">{chapter.image.caption}</figcaption>
+        </figure>
+      )}
     </motion.div>
   );
 }
@@ -57,35 +71,17 @@ function Chapter({ chapter }: { chapter: typeof about.chapters[number] }) {
 export function About() {
   return (
     <section id="verhaal" className="relative bg-white px-8 py-28 md:px-[8vw] md:py-36">
-      <div className="mb-20 grid items-end gap-12 lg:grid-cols-[1fr_auto]">
-        <div className="max-w-xl">
-          <Reveal>
-            <p className="label mb-4">{about.sectionLabel}</p>
-          </Reveal>
-          <WordReveal
-            text={`${about.heading} ${about.headingAccent}`}
-            accentFrom={about.heading.split(" ").length}
-            className="text-[clamp(2.8rem,5vw,4.5rem)] font-bold leading-[1.05] tracking-tight text-[#14305f]"
-          />
-          <Reveal delay={0.2}>
-            <div className="blue-line mt-6" />
-          </Reveal>
-        </div>
-
-        {/* Parallax portrait accent */}
-        <Reveal delay={0.15} className="hidden lg:block">
-          {/* Liggend 16:9 i.p.v. het vorige staande blokje — anders zou de
-              filmstill tot een smalle strook worden bijgesneden. */}
-          <Parallax distance={40} className="aspect-video w-[22rem] overflow-hidden rounded-2xl shadow-[0_24px_60px_rgba(20,48,95,0.18)]">
-            <Image
-              src={images.verhaal}
-              alt="Filmstill uit de verfilming van Victors verhaal: twee mannen 's avonds op straat"
-              width={1920}
-              height={1027}
-              sizes="352px"
-              className="h-full w-full object-cover object-center"
-            />
-          </Parallax>
+      <div className="mb-20 max-w-xl">
+        <Reveal>
+          <p className="label mb-4">{about.sectionLabel}</p>
+        </Reveal>
+        <WordReveal
+          text={`${about.heading} ${about.headingAccent}`}
+          accentFrom={about.heading.split(" ").length}
+          className="text-[clamp(2.8rem,5vw,4.5rem)] font-bold leading-[1.05] tracking-tight text-[#14305f]"
+        />
+        <Reveal delay={0.2}>
+          <div className="blue-line mt-6" />
         </Reveal>
       </div>
 

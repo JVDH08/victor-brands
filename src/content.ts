@@ -164,8 +164,14 @@ export const siteContent = {
         number: "02",
         tag: "Comedy",
         title: "Toomler, televisie & het grote podium",
-        body: "In 1994 sloot Victor zich aan bij Comedytrain. Hij stond regelmatig op het podium van het legendarische Toomler en werd een vast gezicht op televisie: Westenwind, Blauw blauw, Unit 13, Goudkust, Kees & Co en Van Speijk. Zijn acteurscarrière bloeide — totdat het leven een andere wending nam.",
+        body: "In 1994 sloot Victor zich aan bij Comedytrain. Hij stond regelmatig op het podium van het legendarische Toomler en werd een vast gezicht op televisie: Westenwind, Blauw blauw, Unit 13, Goudkust, Kees & Co en Van Speijk. Zijn acteurscarrière bloeide — totdat het leven een andere wending nam. Jaren later volgde nog een van zijn laatste en dierbaarste rollen: Grote Gijs in de NPO-dramaserie Stanley H, over het leven van Stanley Hillis. Een prachtige rol, en een mooie voorlopige afsluiting van zijn carrière als acteur.",
         accent: false,
+        // Optioneel per hoofdstuk: liggende foto onder de tekst (aspect-video).
+        image: {
+          src: "/images/victor-verhaal.jpg",
+          alt: "Victor Brands als Grote Gijs in de NPO-dramaserie Stanley H",
+          caption: "Als Grote Gijs in Stanley H (NPO)",
+        },
       },
       {
         number: "03",
