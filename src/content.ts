@@ -20,7 +20,6 @@ export const siteContent = {
     // heroPortrait 960x1280 (3:4) · senioriteit 1280x877 · verhaal 1920x1027 (16:9)
     heroPortrait: "/images/victor-hero.jpeg",
     senioriteit: "/images/victor-senioriteit.jpeg",
-    verhaal: "/images/victor-verhaal.jpg",
     groep: "/images/victor-groep.jpg",
     heroBackground: "/images/hero-bg.jpg",
     trainingsacteur: "/images/trainingsacteur.jpg",
