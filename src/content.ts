@@ -558,6 +558,9 @@ export const siteContent = {
     sectionLabel: "Het boek",
     title: "Vast",
     titleAccent: "in de VS",
+    // 960x1280 (3:4), gerenderd als fysiek boek boven de podcasts.
+    cover: "/images/vast-in-de-vs-cover.jpg",
+    coverAlt: "Voorkant van het boek Vast in de VS van Jan de Graaf",
     pullQuote:
       "Een ijzingwekkend, minutieus portret van een omgeving die een mens genadeloos op zichzelf terugwerpt.",
     body1:

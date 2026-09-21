@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import Image from "next/image";
 import { siteContent } from "@/content";
 import { Reveal, useNoMotion } from "@/components/motion-primitives";
 
@@ -107,6 +108,23 @@ export function Book() {
 
           <Reveal delay={0.2}>
             <div className="flex flex-col gap-5">
+              {/* Een fysiek boek, geen fotokaart: bijna rechte hoeken, een
+                  vouwlijn langs de rug en een gelaagde schaduw die op de
+                  donkere achtergrond diepte geeft. */}
+              <div className="relative mb-8 w-[240px] self-center overflow-hidden rounded-[3px] shadow-[0_2px_3px_rgba(0,0,0,0.35),6px_14px_24px_-6px_rgba(2,8,22,0.6),14px_36px_70px_-12px_rgba(2,8,22,0.85)] lg:self-start">
+                <Image
+                  src={book.cover}
+                  alt={book.coverAlt}
+                  width={960}
+                  height={1280}
+                  sizes="240px"
+                  className="block h-auto w-full"
+                />
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.3)_0,rgba(255,255,255,0.18)_1.2%,rgba(0,0,0,0.12)_2.8%,rgba(255,255,255,0.06)_4.5%,transparent_8%)]"
+                />
+              </div>
               <p className="label mb-2 text-[#7da7f0]">Beluister het verhaal</p>
               {book.podcasts.map((podcast) => (
                 <a
