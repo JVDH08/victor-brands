@@ -1,19 +1,14 @@
 # Victor Brands
 
-## TODO bij de domeinverhuizing
+## Checklist bij de domeinverhuizing
 
-**Op drie plekken staat `https://victor-brands.vercel.app` tijdelijk hardcoded. Alle drie moeten terug naar `https://victorbrands.nl` zodra dat domein naar Vercel wijst:**
+De basis-URL (metadataBase, sitemap, robots) komt uit `src/site-url.ts` en volgt automatisch het productiedomein in Vercel (`VERCEL_PROJECT_PRODUCTION_URL`). Zolang victorbrands.nl nog de oude WordPress-site serveert, wijst alles naar `victor-brands.vercel.app`.
 
-- `src/app/layout.tsx` — `metadataBase`
-- `src/app/sitemap.ts` — `baseUrl`
-- `src/app/robots.ts` — `baseUrl`
+Bij de omschakeling:
 
-Zolang victorbrands.nl nog de oude WordPress-site serveert, zou het echte domein daar naar bestanden wijzen die er niet zijn: `og:image` geeft dan een 404 (LinkedIn toont geen previewafbeelding bij de gedeelde link) en de sitemap noemt URL's die nog niet bestaan. Bij elk van de drie staat een TODO-comment die hiernaar verwijst.
-
-Hoort bij dezelfde omschakeling:
-
-- `legal.privacy` en `legal.cookies` in `src/content.ts` opnieuw nalopen voordat het domein live gaat.
-- `CONTACT_FROM_EMAIL` zetten zodra victorbrands.nl DNS-geverifieerd is in Resend.
+- `victorbrands.nl` in Vercel toevoegen als domein en de DNS laten wijzen, daarna **opnieuw deployen** — dan schakelen canonical, `og:image`, sitemap en robots vanzelf om.
+- `CONTACT_FROM_EMAIL` zetten zodra victorbrands.nl DNS-geverifieerd is in Resend (zie `SETUP-CONTACT.md`).
+- Controleren dat `RESEND_API_KEY` in Vercel staat en één testbericht via het contactformulier sturen.
 
 ---
 

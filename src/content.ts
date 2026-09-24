@@ -1,9 +1,6 @@
 // ─── Central content file for Victor Brands ──────────────────────────────────
 // Edit this file to update all website content without touching component code.
 // This structure mirrors what a CMS (like your dashboard) would expose via API.
-//
-// 👉 Velden met "in te vullen" zijn placeholders. Vul ze in zodra de echte
-//    gegevens bekend zijn (telefoonnummer, LinkedIn, logo's, klantcase).
 
 export const siteContent = {
   meta: {
@@ -678,8 +675,6 @@ export const siteContent = {
     cta: "Terug naar de homepage",
   },
 
-  // ⚠️ CONCEPT — placeholderteksten. Laat de definitieve privacyverklaring en
-  //    het cookiebeleid juridisch controleren voordat de site live gaat.
   legal: {
     backLabel: "Terug naar home",
     contactCta: "Contact opnemen",
