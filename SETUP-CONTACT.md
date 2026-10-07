@@ -19,7 +19,7 @@ het formulier in `src/components/contact.tsx`.
    ```
    RESEND_API_KEY=re_xxxxxxxxxxxxxxxxxxxx
    CONTACT_TO_EMAIL=victor@victorbrands.nl
-   CONTACT_FROM_EMAIL=onboarding@resend.dev
+   CONTACT_FROM_EMAIL=Victor Brands <noreply@victorbrands.nl>
    ```
 
 > `.env.local` staat in `.gitignore` — de key komt **nooit** in git.
@@ -47,23 +47,19 @@ Variables**:
 
 - `RESEND_API_KEY`
 - `CONTACT_TO_EMAIL` (optioneel, default `victor@victorbrands.nl`)
-- `CONTACT_FROM_EMAIL` (optioneel, default `onboarding@resend.dev`)
+- `CONTACT_FROM_EMAIL` (optioneel, default `Victor Brands <noreply@victorbrands.nl>`)
 
 Redeploy na het toevoegen.
 
-## 5. Later: mailen vanaf victorbrands.nl
+## 5. Mailen vanaf victorbrands.nl
 
-Nu wordt verstuurd vanaf Resends gedeelde testdomein `onboarding@resend.dev`.
-Voor een professionele afzender (en betere bezorgbaarheid):
+`victorbrands.nl` is geverifieerd in Resend (Resend → **Domains** →
+<https://resend.com/domains>, status **Verified**). Het formulier verstuurt
+daarom vanaf `noreply@victorbrands.nl`:
 
-1. Resend → **Domains** → <https://resend.com/domains> → **Add Domain** →
-   `victorbrands.nl`.
-2. Voeg de getoonde **DNS-records** (SPF, DKIM, en evt. DMARC) toe bij de
-   DNS-provider van het domein. Wacht tot Resend de status op **Verified** zet.
-3. Pas `CONTACT_FROM_EMAIL` aan naar een adres op dat domein, bijv.:
+```
+CONTACT_FROM_EMAIL=Victor Brands <noreply@victorbrands.nl>
+```
 
-   ```
-   CONTACT_FROM_EMAIL=Victor Brands <noreply@victorbrands.nl>
-   ```
-
-   Lokaal in `.env.local` én op Vercel. Redeploy.
+De **DNS-records** (SPF, DKIM, en evt. DMARC) die Resend toont moeten bij de
+DNS-provider van het domein blijven staan, anders vervalt de verificatie.
