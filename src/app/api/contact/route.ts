@@ -9,10 +9,9 @@ const INTEREST_OPTIONS = siteContent.contact.interests.options;
 
 // Where contact submissions are delivered. Override with CONTACT_TO_EMAIL.
 const TO_EMAIL = process.env.CONTACT_TO_EMAIL || "victor@victorbrands.nl";
-// The "from" address. Until a domain is verified on Resend, use the shared
-// test sender "onboarding@resend.dev". Once victorbrands.nl is verified in
-// Resend (via DNS), set CONTACT_FROM_EMAIL to e.g. "noreply@victorbrands.nl".
-const FROM_EMAIL = process.env.CONTACT_FROM_EMAIL || "Victor Brands <onboarding@resend.dev>";
+// The "from" address. Requires victorbrands.nl to be verified in Resend (via
+// DNS). Override with CONTACT_FROM_EMAIL.
+const FROM_EMAIL = process.env.CONTACT_FROM_EMAIL || "Victor Brands <noreply@victorbrands.nl>";
 
 // ── Rate limiting ────────────────────────────────────────────────────────────
 // Max. aantal berichten per IP binnen het venster. Beschermt tegen spam en
