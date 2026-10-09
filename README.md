@@ -2,13 +2,7 @@
 
 ## TODO bij de domeinverhuizing
 
-**Op drie plekken staat `https://victor-brands.vercel.app` tijdelijk hardcoded. Alle drie moeten terug naar `https://victorbrands.nl` zodra dat domein naar Vercel wijst:**
-
-- `src/app/layout.tsx` — `metadataBase`
-- `src/app/sitemap.ts` — `baseUrl`
-- `src/app/robots.ts` — `baseUrl`
-
-Zolang victorbrands.nl nog de oude WordPress-site serveert, zou het echte domein daar naar bestanden wijzen die er niet zijn: `og:image` geeft dan een 404 (LinkedIn toont geen previewafbeelding bij de gedeelde link) en de sitemap noemt URL's die nog niet bestaan. Bij elk van de drie staat een TODO-comment die hiernaar verwijst.
+De basis-URL (`metadataBase`, sitemap, robots) komt uit `src/site-url.ts`: het productiedomein uit Vercel (`VERCEL_PROJECT_PRODUCTION_URL`), met `https://www.victorbrands.nl` als vaste fallback. Het apex-domein `victorbrands.nl` stuurt door naar www en telt daarom als `https://www.victorbrands.nl`.
 
 Hoort bij dezelfde omschakeling:
 
