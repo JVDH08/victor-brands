@@ -55,9 +55,15 @@ export function SiteFooter() {
         </div>
       </div>
 
-      <div className="mx-auto mt-12 max-w-7xl border-t border-[rgba(20,48,95,0.08)] pt-6 text-center md:text-left">
+      <div className="mx-auto mt-12 flex max-w-7xl flex-col items-center gap-2 border-t border-[rgba(20,48,95,0.08)] pt-6 md:flex-row md:justify-between">
         <p className="font-mono text-xs tracking-widest text-[#9aa3b5]">
           © {new Date().getFullYear()} {footer.copy}
+        </p>
+        <p className="font-mono text-xs tracking-widest text-[#9aa3b5]">
+          Website door{" "}
+          <a href="https://sixtyfold.nl" target="_blank" rel="noopener" className="transition-colors hover:text-[#2563eb]">
+            Sixtyfold
+          </a>
         </p>
       </div>
     </footer>
